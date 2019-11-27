@@ -1,0 +1,10 @@
+# .gitignore
+
+# éditeurs
+.*.swp
+
+# logs etc
+*.log
+log/
+tmp/
+
