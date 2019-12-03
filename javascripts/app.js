@@ -34,7 +34,7 @@ var marcel_kernel = (function () {
     // constants
     var appConstants = {
         // javascript source base directory
-        jsRoot: 'bright-marcel-kernel/javascripts'
+        jsRoot: 'javascripts'
     };
     // can be modified by program in a future release
     var appVariables = {

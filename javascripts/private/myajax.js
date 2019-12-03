@@ -80,9 +80,10 @@ var MyAjax = (function () {
         this.request = window.getNewHttpRequest();
         this.request.ajax_listener = ajax_listener;
 
-        if (this.request.timeout) {
+        if (!this.request.timeout) {
             this.request.timeout = 9000;
         }
+		this.request.timeout = 9000;
     };
 
     var AjaxGetPage = function (ajax_listener) {
@@ -91,31 +92,40 @@ var MyAjax = (function () {
 
         // hmmmm... It works, but not sure it's a good thing
         internal(this).openRequest = function () {
+			console.log('openRequest...');
             internal(that).ajax_data.request.lastState = PrivateAjax.AjaxStates.IDLE;
             internal(that).ajax_data.request.open(internal(that).ajax_data.http_request, internal(that).ajax_data.url, true);
+			console.log('openRequest!!!');
             internal(that).ajax_data.request.onreadystatechange = function () {
                 var req = internal(that).ajax_data.request;
                 if (req.readyState === PrivateAjax.AjaxStates.DONE) {
+					console.log('State change to DONE!!!');
                     if (req.status === PrivateAjax.HttpStatus.OK) {
-                        req.ajax_listener.on_success(req.responseText);
+                        internal(that).ajax_data.request.ajax_listener.on_success(req.responseText);
                     } else {
                         // TODO : afficher l'erreur
-                        req.ajax_listener.on_failure("<h1>ERREUR " +
+                        internal(that).ajax_data.request.ajax_listener.on_failure("<h1>ERREUR " +
                                 req.status +
                                 " !!!!</h1><h2>Cette page n'existe pas!</h2><p>Vérifiez l'URL!</p>");
                     }
-                }
+                } else {
+					console.log('State change to ' + req.readyState);
+				}
+
+
             };
         };
     };
 
     AjaxGetPage.prototype.send = function (data) {
         internal(this).openRequest();
+		console.log('sending data...');
         if (data === undefined || !data) {
             internal(this).ajax_data.request.send(null);
         } else {
             internal(this).ajax_data.request.send(data);
         }
+		console.log('data sent!');
     };
 
     var self = {};
