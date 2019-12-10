@@ -39,15 +39,29 @@
   }
 }
 
+@hcolor: #4545ee;
+@bcolor: #8a80c0;
+@h4color: #aa3333;
 
-article {
+#main_title {
+  color: @hcolor;
+}
+
+#main_content {
+  h1,h2, h3, h4, h5, h6 {
+    color: @hcolor;
+  }
+}
+
+
+#main_content article {
   p {
     display: block;
   }
   h4 {
     display: inline;
     margin-right: 1em;
-    color: #ff6666;
+    color: @h4color;
     letter-spacing: -1px;
     &:after {
       content: ' - ';
@@ -57,9 +71,6 @@ article {
     display: inline;
   }
 }
-
-@hcolor: #4455ee;
-@bcolor: #88a0c0;
 
 #header {
   background-color: @bcolor;
@@ -79,12 +90,3 @@ article {
   }
 }
 
-#main_title {
-  color: @hcolor;
-}
-
-#main_content {
-  h1,h2, h3, h4, h5, h6 {
-    color: @hcolor;
-  }
-}

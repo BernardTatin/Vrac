@@ -35,38 +35,8 @@
 .tar_download_link:hover {
   background: url(../images/sprite_download.png) no-repeat top right;
 }
-article p {
-  display: block;
-}
-article h4 {
-  display: inline;
-  margin-right: 1em;
-  color: #ff6666;
-  letter-spacing: -1px;
-}
-article h4:after {
-  content: ' - ';
-}
-article h4 + p {
-  display: inline;
-}
-#header {
-  background-color: #88a0c0;
-}
-#header h1 {
-  font-size: 2.85em;
-}
-#header h1 a {
-  color: #4455ee;
-}
-#header h2 {
-  font-size: 1.85em;
-}
-#header nav p {
-  color: #4455ee;
-}
 #main_title {
-  color: #4455ee;
+  color: #4545ee;
 }
 #main_content h1,
 #main_content h2,
@@ -74,5 +44,35 @@ article h4 + p {
 #main_content h4,
 #main_content h5,
 #main_content h6 {
-  color: #4455ee;
+  color: #4545ee;
+}
+#main_content article p {
+  display: block;
+}
+#main_content article h4 {
+  display: inline;
+  margin-right: 1em;
+  color: #aa3333;
+  letter-spacing: -1px;
+}
+#main_content article h4:after {
+  content: ' - ';
+}
+#main_content article h4 + p {
+  display: inline;
+}
+#header {
+  background-color: #8a80c0;
+}
+#header h1 {
+  font-size: 2.85em;
+}
+#header h1 a {
+  color: #4545ee;
+}
+#header h2 {
+  font-size: 1.85em;
+}
+#header nav p {
+  color: #4545ee;
 }

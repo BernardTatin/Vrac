@@ -10,7 +10,7 @@ var config = (function () {
         SITE_TITLE: 'Inner Stories: ',
         AUTHORS: 'Bernard Tatin',
         COPYRIGHT: '(c) 2019',
-        TOC_TITLE: 'chapters',
+        TOC_TITLE: 'voir aussi...',
         // be carefull with that assignment, Eugene!
         SITE_BASE: "gitio/pages",
 // don't touch that!
