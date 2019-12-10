@@ -5,11 +5,11 @@ var config = (function () {
     var DEFAULT_ROOT = 'main';
     return {
 // personnal settings
-        SITE_NAME: 'Ideal Cobol',
-        SITE_DESCRIPTION: 'When Cobol is ideal',
-        SITE_TITLE: 'Ideal Cobol: ',
+        SITE_NAME: 'Inner Stories',
+        SITE_DESCRIPTION: '... les scories d\'une vie de développeur',
+        SITE_TITLE: 'Inner Stories: ',
         AUTHORS: 'Bernard Tatin',
-        COPYRIGHT: '(c) 2016',
+        COPYRIGHT: '(c) 2019',
         TOC_TITLE: 'chapters',
         // be carefull with that assignment, Eugene!
         SITE_BASE: "gitio/pages",
