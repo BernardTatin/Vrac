@@ -1,4 +1,4 @@
-See also, voir aussi: <a href=" https://bernardtatin.github.io/innerstories">Inner Stories"</a>.
+See also, voir aussi: [Inner Stories](https://bernardtatin.github.io/innerstories).
 
 # My inner stories
 
