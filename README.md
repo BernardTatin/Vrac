@@ -1,3 +1,5 @@
+See also, voir aussi: <a href=" https://bernardtatin.github.io/innerstories">Inner Stories"</a>.
+
 # My inner stories
 
 If you are here, you're in the wrong place. You'll only find my complaints about my life pains. Too sad for you!
