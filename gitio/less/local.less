@@ -59,15 +59,17 @@
     display: block;
   }
   h4 {
+    color: @h4color;
+  }
+  h4, h5 {
     display: inline;
     margin-right: 1em;
-    color: @h4color;
     letter-spacing: -1px;
     &:after {
       content: ' - ';
     }
   }
-  h4 + p {
+  h4 + p, h5 + p {
     display: inline;
   }
 }

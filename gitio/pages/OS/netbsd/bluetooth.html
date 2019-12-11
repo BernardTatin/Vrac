@@ -9,14 +9,38 @@
         <h2>La <em>dent bleue</em></h2>
 
         <h4>est-il possible de gérer le <em>BlueTooth</em> avec <em>NetBSD</em></h4>
-        <p>Même si <code>dmesg</code> ne semble pas avoir trace de contrôleur <em>BlueTooth</em>, le fait d'ajouter <code>bluetooth=YES</code> et de lancer:</p>
+        <p>Même si <code>dmesg</code> ne semble pas avoir trace de contrôleur <em>BlueTooth</em>, le fait d'ajouter <code>bluetooth=YES</code> dans <code>/etc/rc.conf</code> et de lancer:</p>
         <pre>
 # /etc/rc.d/bluetooth start
         </pre>
         <p>semble se dérouler correctement.</p>
 
-        <h4>la configuration</h4>
+        <h4>la configuration, problèmes</h4>
         <p>Pour le moment, ayant raté le début de la configuration, je suis bloqué.</p>
+        <p>Après un <em>reboot</em>, j'ai enfin pu connecter mon clavier <em>Microsoft</em> en utilisant les instructions données par un <a href="https://dressupgeekout.blogspot.com/2018/10/attaching-bluetooth-keyboard-to-netbsd.html">blog</a> qui fait remarquer que la <a href="https://www.netbsd.org/docs/guide/en/chap-bluetooth.html">documentation officielle</a> devrait être revue.</p>
+
+        <h4>la configuration, enfin!</h4>
+        <p>Etant donné que tout va bien (enfin!), je ne relance pas les commandes pour afficher leur résultat, d'autant plus que cela m'oblige à retrouver un second clavier bien rangé.</p>
+        <p>Les étapes pour configurer correctement le <em>BlueTooth</em> sont les suivantes:</p>
+
+        <ol>
+            <li>activer le service <em>BlueTooth</em>,
+                <ul>
+                    <li>ajouter <code>bluetooth=YES</code> dans <code>/etc/rc.conf</code>,</li>
+                    <li>lancer la commande <code>sudo /etc/rc.d/bluetooth start</code>,</li>
+                </ul>
+            </li>
+            <li>trouver le nom du <em>hub</em> actif dans le noyau sur lequel se connectent les appareils <em>BlueTooth</em>, soit avec <code>dmesg | grep -i bluetooth</code>, soit, si la précédente commande est sans résultat, <code>dmesg | grep bthub</code>,</li>
+            <li>trouver les caractéristiques du clavier, en particulier son <strong><code>BDADDR</code></strong>, avec <code>btconfig ubt0 inquiry</code>,</li>
+            <li>sauvegarder dans le fichier adéquat, <code>echo "xx:xx:xx:xx:xx:xx keyboard" &gt;&gt; /etc/bluetooth/hosts</code> (avec l'utilisateur <code>root</code>),</li>
+            <li>apairer le clavier au PC, avec la commande <code>btpin -d ubt0 -a keyboard -r -l 4 -P</code>:
+                <ul>
+                    <li>la commande affiche un nombre à 4 chiffres,</li>
+                    <li>saisissez ces 4 chiffres suivi de la touche <em>Enter</em>,</li>
+                </ul>
+            </li>
+            <li>attacher le clavier avec la commande <code>sudo btdevctl -d ubt0 -a keyboard -s HID -A</code>.</li>
+        </ol>
 	</body>
 </html>
 

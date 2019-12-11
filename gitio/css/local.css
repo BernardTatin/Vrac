@@ -50,15 +50,20 @@
   display: block;
 }
 #main_content article h4 {
+  color: #aa3333;
+}
+#main_content article h4,
+#main_content article h5 {
   display: inline;
   margin-right: 1em;
-  color: #aa3333;
   letter-spacing: -1px;
 }
-#main_content article h4:after {
+#main_content article h4:after,
+#main_content article h5:after {
   content: ' - ';
 }
-#main_content article h4 + p {
+#main_content article h4 + p,
+#main_content article h5 + p {
   display: inline;
 }
 #header {
