@@ -2,6 +2,7 @@
 
 # éditeurs
 .*.swp
+*.bak
 
 # logs etc
 *.log
