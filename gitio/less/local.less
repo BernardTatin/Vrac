@@ -39,7 +39,7 @@
   }
 }
 
-@hcolor: #4545ee;
+@hcolor: #eeee45;
 @bcolor: #8a80c0;
 @h4color: #aa3333;
 
@@ -96,11 +96,22 @@
     display: none;
 }
 
-/*
 #main_content #toc {
+    display: block;
     -webkit-column-span: 1;
     column-span: 1;
     margin-top: 0;
     padding-top: 0;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-break-inside: avoid;
+    break-inside: avoid;
 }
-*/
+#main_content #toc ul {
+    display: block;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-break-inside: avoid;
+    -moz-break-inside: avoid;
+    break-inside: avoid;
+}

@@ -36,7 +36,7 @@
   background: url(../images/sprite_download.png) no-repeat top right;
 }
 #main_title {
-  color: #4545ee;
+  color: #eeee45;
 }
 #main_content h1,
 #main_content h2,
@@ -44,7 +44,7 @@
 #main_content h4,
 #main_content h5,
 #main_content h6 {
-  color: #4545ee;
+  color: #eeee45;
 }
 #main_content article p {
   display: block;
@@ -73,22 +73,33 @@
   font-size: 2.85em;
 }
 #header h1 a {
-  color: #4545ee;
+  color: #eeee45;
 }
 #header h2 {
   font-size: 1.85em;
 }
 #header nav p {
-  color: #4545ee;
+  color: #eeee45;
 }
 #downloads {
   display: none;
 }
-/*
 #main_content #toc {
-    -webkit-column-span: 1;
-    column-span: 1;
-    margin-top: 0;
-    padding-top: 0;
+  display: block;
+  -webkit-column-span: 1;
+  column-span: 1;
+  margin-top: 0;
+  padding-top: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  -webkit-break-inside: avoid;
+  break-inside: avoid;
 }
-*/
+#main_content #toc ul {
+  display: block;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  -webkit-break-inside: avoid;
+  -moz-break-inside: avoid;
+  break-inside: avoid;
+}
