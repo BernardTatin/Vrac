@@ -8,6 +8,7 @@ var config = (function () {
         SITE_NAME: 'Inner Stories',
         SITE_DESCRIPTION: '... les scories d\'une vie de développeur',
         SITE_TITLE: 'Inner Stories: ',
+        HOME_TITLE: 'Accueil',
         AUTHORS: 'Bernard Tatin',
         COPYRIGHT: '(c) 2019',
         TOC_TITLE: 'voir aussi...',
