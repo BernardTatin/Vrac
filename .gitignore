@@ -3,6 +3,7 @@
 # éditeurs
 .*.swp
 *.bak
+.idea/
 
 # logs etc
 *.log
