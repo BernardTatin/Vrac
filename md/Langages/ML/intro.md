@@ -18,9 +18,11 @@ Bien que plus de deux décennies nous séparent de ces choix discutables, je per
 
 ## la famille _Standard ML_
 
+Le meilleur site pour débuter est [Awesome Standard ML](https://github.com/i4ki/awesome-sml). Les environnements que je veux utiliser (et maîtriser) sont, dans l'ordre de mes priorités:
 
+- [Standard ML of New Jersey](http://www.smlnj.org/),
+- [Poly/ML](https://polyml.org/),
+- [MLton](http://mlton.org/),
+- [Moscow ML](https://mosml.org/).
 
-
-
-
-
+Voir aussi: [installation des dernières versions](installation.md).
