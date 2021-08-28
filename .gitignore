@@ -4,6 +4,7 @@
 .*.swp
 *.bak
 .idea/
+.vscode/
 
 # logs etc
 *.log
