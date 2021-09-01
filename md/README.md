@@ -11,4 +11,6 @@ Des histoires de _shell_, de _maths_, de _langage informatiques_...
 - ML
   - [introduction à ML](Langages/ML/intro.md)
   - [installation des dernières versions](Langages/ML/installation.md)
+  - code
+    - [les fonctions](Langages/ML/code/fonctions.md)
 
