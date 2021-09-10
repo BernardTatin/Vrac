@@ -13,7 +13,7 @@
  * (qa, qb) wich represents a value of Q: qa/qb
  *)
 
-structure q_arithmetic :> Q_ARITHMETIC =
+structure q_: Q_ARITHMETIC =
 struct
   (*
   * normalize
@@ -64,13 +64,13 @@ struct
   fun q_div (qa, qb) (pa, pb) =
     q_normalize(qa*pb, qb*pa);
 
-  (*
-  * comparison
+  
+ (* comparison
   * problem: q_compare and q_sub are dependant, so testing one...
   *)
   fun q_compare(qa, qb) (pa, pb) =
     let
-      val (da, db) = q_sub (qa, qb) (pa, pb)
+      val (da, db) = q_sub(qa, qb)  (pa, pb)
     in
       if da = 0 then EQUAL
           else if da < 0 then LESS

@@ -15,5 +15,5 @@ signature Q_ARITHMETIC =
         val q_mul : int * int -> int * int -> int * int
         val q_sub : int * int -> int * int -> int * int
         val q_div : int * int -> int * int -> int * int
-        val q_compare : (int * int) -> (int * int) -> order
+(*         val q_compare : (int * int) -> (int * int) -> order *)
     end;
