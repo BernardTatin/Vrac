@@ -10,7 +10,6 @@
 
 signature Q_ARITHMETIC =
     sig
-        val gcd : int -> int -> int
         val q_normalize : int * int -> int * int
         val q_add : int * int -> int * int -> int * int
         val q_mul : int * int -> int * int -> int * int
