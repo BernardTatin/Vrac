@@ -16,15 +16,34 @@
 structure q_: Q_ARITHMETIC =
 struct
   (*
+   * q_isvalid
+   *)
+   fun q_isvalid(_, 0) = false
+      | q_isvalid(_, _) = true;
+  (*
+   * q_is_int
+   *)
+   fun q_is_int(a, b) =
+      if q_isvalid(a, b) then
+        let 
+          val (na, nb) = q_normalize(a, b)
+        in
+          if nb = 1 then true
+                    else false
+        end
+      else
+        false
+  (*
   * normalize
   *)
-  fun q_normalize(qa, qb) =
+  and q_normalize(qa, qb) =
     (* normalize the sign when qb < 0 *)
       let
         (*
         * we need the gcd of two integers
         *)
         fun gcd 0 n = n
+          | gcd m 0 = m
           | gcd m n = gcd (n mod m) m;
 
         (*

@@ -10,10 +10,12 @@
 
 signature Q_ARITHMETIC =
     sig
+        val q_isvalid : int * int -> bool
+        val q_is_int : int * int -> bool
         val q_normalize : int * int -> int * int
         val q_add : int * int -> int * int -> int * int
         val q_mul : int * int -> int * int -> int * int
         val q_sub : int * int -> int * int -> int * int
         val q_div : int * int -> int * int -> int * int
-(*         val q_compare : (int * int) -> (int * int) -> order *)
+        val q_compare : (int * int) -> (int * int) -> order
     end;
