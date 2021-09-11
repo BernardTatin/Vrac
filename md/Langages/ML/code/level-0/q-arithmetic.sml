@@ -18,12 +18,12 @@ struct
   (*
    * q_isvalid
    *)
-   fun q_isvalid(_, 0) = false
+  fun q_isvalid(_, 0) = false
       | q_isvalid(_, _) = true;
   (*
    * q_is_int
    *)
-   fun q_is_int(a, b) =
+  fun q_is_int(a, b) =
       if q_isvalid(a, b) then
         let 
           val (na, nb) = q_normalize(a, b)
