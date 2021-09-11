@@ -1,4 +1,0 @@
-[submodule "bright-marcel-kernel"]
-	path = bright-marcel-kernel
-	url = git@github.com:BernardTatin/bright-marcel-kernel.git
-	update = rebase
