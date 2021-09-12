@@ -67,7 +67,7 @@ struct
             end;
 
         in
-                inner_exec 0 loops
+            inner_exec 0 loops
         end
 end;
 
