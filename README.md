@@ -1,9 +1,16 @@
-See also, voir aussi: [Inner Stories](https://bernardtatin.github.io/innerstories).
+Des histoires de _shell_, de _maths_, de _langage informatiques_...
 
-# My inner stories
+# les histoires
 
-If you are here, you're in the wrong place. You'll only find my complaints about my life pains. Too sad for you!
+## histoires de _shell_
 
-# Mes histoires intérieures
+- [xargs](shell/xargs.md)
 
-Si vous êtes  ici, dites-vous bien que vous n'êtes pas au bon endroit. Vous y trouverez uniquement mes complaintes à propos des complications de ma vie. Trop triste pour vous, fuyez!
+## langages
+
+- ML
+  - [introduction à ML](Langages/ML/intro.md)
+  - [installation des dernières versions](Langages/ML/installation.md)
+  - code
+    - [les fonctions](Langages/ML/code/fonctions.md)
+
