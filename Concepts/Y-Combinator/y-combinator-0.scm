@@ -1,4 +1,5 @@
-;; #lang racket
+;; y-combinator-0.scm
+;; https://mvanier.livejournal.com/2897.html
 
 (define display-test
     (lambda (name value)
