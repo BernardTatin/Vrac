@@ -4,7 +4,7 @@
  *)
 
 
-signature CLOSURE =
-    sig
-        val closure0 : int -> int -> int
-    end;
+signature CLOSURE = sig
+    val closure0 : int -> int -> int
+    val testme : unit -> unit
+end;
