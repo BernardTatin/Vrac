@@ -1,8 +1,11 @@
 (*
- * integer-computing.sig
+ * integer-computing.sml
  * computations on integers 
+ *
+ * an example how to use structures
  *)
 
+(* naive recursive algorithms *)
 structure SimpleIntCompute : INTEGER_COMPUTING = struct
     fun fact 0 = 1
         | fact 1 = 1
@@ -15,6 +18,7 @@ structure SimpleIntCompute : INTEGER_COMPUTING = struct
             (fibo (n - 1)) + (fibo (n - 2));
 end;
 
+(* tail recursive algorithms *)
 structure IntCompute : INTEGER_COMPUTING = struct
     fun fact 0 = 1
         | fact 1 = 1
@@ -38,6 +42,7 @@ structure IntCompute : INTEGER_COMPUTING = struct
 end;
 
 structure TestIntegerComputing : TEST_INTEGER_COMPUTING = struct
+    (* stupis test *)
     fun test f loops =
         let
             fun show_test k =
