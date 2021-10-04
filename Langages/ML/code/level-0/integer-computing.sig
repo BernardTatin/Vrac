@@ -11,5 +11,5 @@ signature INTEGER_COMPUTING = sig
 end;
 
 signature TEST_INTEGER_COMPUTING = sig
-    val test : (int -> int) -> int -> unit  (* for testing the above funtions *)
+    val test : string -> (int -> int) -> int -> unit  (* for testing the above funtions *)
 end;

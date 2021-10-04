@@ -43,10 +43,10 @@ end;
 
 structure TestIntegerComputing : TEST_INTEGER_COMPUTING = struct
     (* stupis test *)
-    fun test f loops =
+    fun test f_name f loops =
         let
             fun show_test k =
-                print (Int.toString k ^ " -> " ^ Int.toString (f k) ^ "\n")
+                print (f_name ^ Int.toString k ^ " -> " ^ Int.toString (f k) ^ "\n")
 
             fun iloop 0 = show_test 0
                 | iloop k =
@@ -58,8 +58,8 @@ structure TestIntegerComputing : TEST_INTEGER_COMPUTING = struct
         end
 end;
 
-TestIntegerComputing.test IntCompute.fibo 32;
-TestIntegerComputing.test SimpleIntCompute.fibo 32;
+TestIntegerComputing.test "tail rec fibo " IntCompute.fibo 32;
+TestIntegerComputing.test "     rec fibo " SimpleIntCompute.fibo 32;
 
-TestIntegerComputing.test IntCompute.fact 12;
-TestIntegerComputing.test SimpleIntCompute.fact 12;
+TestIntegerComputing.test "tail rec fact " IntCompute.fact 12;
+TestIntegerComputing.test "     rec fact " SimpleIntCompute.fact 12;
