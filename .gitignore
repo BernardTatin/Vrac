@@ -13,3 +13,10 @@ log/
 tmp/
 
 innerstories.code-workspace
+
+.fake
+.ionide
+Debug/
+*.nuget.*
+project.assets.json
+
