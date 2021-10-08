@@ -1,6 +1,6 @@
 (*
  * integer-computing.sml
- * computations on integers 
+ * computations on integers
  *
  * an example how to use structures
  *)
@@ -16,6 +16,8 @@ structure SimpleIntCompute : INTEGER_COMPUTING = struct
         | fibo 1 = 1
         | fibo n =
             (fibo (n - 1)) + (fibo (n - 2));
+
+    fun gcd a b = IntCompute.gcd a b;
 end;
 
 (* tail recursive algorithms *)
@@ -24,21 +26,28 @@ structure IntCompute : INTEGER_COMPUTING = struct
         | fact 1 = 1
         | fact n =
             let
-                fun innerf 0 acc = acc
-                    | innerf k acc = innerf (k - 1) (k * acc)
-            
+                fun inner_f 0 acc = acc
+                    | inner_f k acc = inner_f (k - 1) (k * acc)
+
             in
-              innerf n 1
+              inner_f n 1
             end
 
     fun fibo n =
         let
-            fun inner_f 0 a _ = a 
-                | inner_f 1 _ b = b 
+            fun inner_f 0 a _ = a
+                | inner_f 1 _ b = b
                 | inner_f k a b = inner_f (k - 1) b (a + b)
-        in 
+        in
             inner_f n 0 1
         end
+
+    fun gcd 0 b = b
+        | gcd a 0 = a
+        | gcd a b =
+            if a > b
+                then gcd (a - b) b
+                else gcd a (b - a);
 end;
 
 structure TestIntegerComputing : TEST_INTEGER_COMPUTING = struct
@@ -47,6 +56,19 @@ structure TestIntegerComputing : TEST_INTEGER_COMPUTING = struct
         let
             fun show_test k =
                 print (f_name ^ Int.toString k ^ " -> " ^ Int.toString (f k) ^ "\n")
+
+            fun iloop 0 = show_test 0
+                | iloop k =
+                    ( show_test k;
+                      iloop (k - 1))
+
+        in
+            iloop loops
+        end
+    fun test2 f_name f loops =
+        let
+            fun show_test k =
+                print (f_name ^ Int.toString k ^ " -> " ^ Int.toString (f 1 k) ^ "\n")
 
             fun iloop 0 = show_test 0
                 | iloop k =
