@@ -15,7 +15,7 @@ module Main =
 
     [<EntryPoint>]
     let main argv =
-        let message = from "F#" // Call the function
+        let fs = "F#" // Call the function
         let me = "Me"
-        printfn "Hello world %s and %s" message (from me)
+        big_from (fs :: (me :: []))
         0 // return an integer exit code
