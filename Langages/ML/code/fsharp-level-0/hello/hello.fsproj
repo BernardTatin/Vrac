@@ -5,6 +5,8 @@
     <WarnOn>3390;$(WarnOn)</WarnOn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="libtool.fsi" />
+    <Compile Include="libhello.fsi" />
     <Compile Include="libtool.fs" />
     <Compile Include="libhello.fs" />
     <Compile Include="hello.fs" />

@@ -9,11 +9,12 @@ namespace Hello
 (* we NEED a module *)
 module LibHello =
     open System
+    open LibTool
 
     // Define a function to construct a message to print
     let from whom =
         sprintf "from %s!!!" whom
-    
+
     let show_from whom =
         printfn "Hello world %s" (from whom)
 
@@ -23,4 +24,4 @@ module LibHello =
                         big_from_0 tl
 
     let big_from l =
-        LibTool.foreach show_from l
+        foreach show_from l
