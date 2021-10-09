@@ -9,7 +9,6 @@ namespace Hello
 
 (* we NEED a module *)
 module Main =
-    open System
     // how to use an external module
     open LibHello
 
