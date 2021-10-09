@@ -17,5 +17,10 @@ module Main =
     let main argv =
         let fs = "F#" // Call the function
         let me = "Me"
+
+        // not the best list construction
         big_from (fs :: (me :: []))
+        // command line parameters
+        big_from (argv |> Array.toList)
+
         0 // return an integer exit code
