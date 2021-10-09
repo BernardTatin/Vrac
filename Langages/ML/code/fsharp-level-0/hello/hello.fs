@@ -11,7 +11,7 @@ namespace Hello
 module Main =
     open System
     // how to use an external module
-    open LibHello
+//    open LibHello
 
     [<EntryPoint>]
     let main argv =
@@ -19,8 +19,10 @@ module Main =
         let me = "Me"
 
         // not the best list construction
-        big_from (fs :: (me :: []))
+        // if we don't _open_ LibHello, we must prefix big_from
+        // with LibHello.
+        LibHello.big_from (fs :: (me :: []))
         // command line parameters
-        big_from (argv |> Array.toList)
+        LibHello.big_from (argv |> Array.toList)
 
         0 // return an integer exit code

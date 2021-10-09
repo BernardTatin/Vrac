@@ -17,7 +17,10 @@ module LibHello =
     let show_from whom =
         printfn "Hello world %s" (from whom)
 
-    let rec big_from = function
+    let rec big_from_0 = function
         | []        -> ()
         | hd :: tl  -> show_from hd;
-                        big_from tl
+                        big_from_0 tl
+
+    let big_from l =
+        LibTool.foreach show_from l
