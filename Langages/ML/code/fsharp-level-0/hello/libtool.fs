@@ -10,6 +10,6 @@ namespace Hello
 (* we NEED a module *)
 module LibTool =
     let rec foreach f = function
-        | []        -> ()
-        | hd :: tl  -> f hd;
-                       foreach f tl
+        | []          -> ()
+        | hd :: tl    -> f hd;
+                         foreach f tl
