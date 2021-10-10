@@ -22,6 +22,6 @@ module Main =
         // with LibHello.
         big_from (fs :: (me :: []))
         // command line parameters
-        big_from (argv |> Array.toList)
+        argv |> Array.toList |> big_from
 
         0 // return an integer exit code
