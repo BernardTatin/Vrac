@@ -1,11 +1,10 @@
 (*
     libtools.fsi
-    hello world, in two (2) or more files
+    A general purpose library
 *)
 
 (* global namespace *)
 namespace Hello
-// Learn more about F# at http://docs.microsoft.com/dotnet/fsharp
 
 (* the module name *)
 module LibTool =

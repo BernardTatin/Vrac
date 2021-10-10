@@ -3,14 +3,14 @@
     a (very) small library to try multi file project
 *)
 
-(* we NEED a namespace *)
+(* global namespace *)
 namespace Hello
 
-(* we NEED a module *)
+(* the module name *)
 module LibHello =
     open LibTool
 
-    // Define a function to construct a message to print
+    // cf. libhello.fsi
     let from whom =
         sprintf "from %s!!!" whom
 
