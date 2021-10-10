@@ -12,11 +12,11 @@
 log/
 tmp/
 
-innerstories.code-workspace
+*.code-workspace
 
+# F# files
 .fake
 .ionide
 Debug/
-*.nuget.*
-project.assets.json
-
+Release/
+obj/
