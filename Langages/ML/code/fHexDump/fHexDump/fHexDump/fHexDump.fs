@@ -34,10 +34,9 @@ module main =
     [<EntryPoint>]
     let main argv =
         if (has_argument "help" "h" argv) then
-            let doit () = help 0
-            doit ()
-        else if (has_argument "version" "v" argv) then
-                 version ()
+            help 0
+        if (has_argument "version" "v" argv) then
+            version ()
         else
             let doit () = help 1
             doit ()
