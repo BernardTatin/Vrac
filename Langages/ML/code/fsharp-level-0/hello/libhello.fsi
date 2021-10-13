@@ -4,7 +4,7 @@
 *)
 
 (* we NEED a namespace *)
-namespace Hello
+namespace Libraries
 
 (* we NEED a module *)
 module LibHello =

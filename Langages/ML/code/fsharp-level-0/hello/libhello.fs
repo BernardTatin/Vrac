@@ -4,7 +4,7 @@
 *)
 
 (* global namespace *)
-namespace Hello
+namespace Libraries
 
 (* the module name *)
 module LibHello =

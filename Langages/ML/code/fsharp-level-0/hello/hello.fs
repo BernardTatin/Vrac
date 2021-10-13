@@ -10,7 +10,7 @@ namespace Hello
 (* we NEED a module *)
 module Main =
     // how to use an external module
-    open LibHello
+    open Libraries.LibHello
 
     [<EntryPoint>]
     let main argv =
