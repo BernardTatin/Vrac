@@ -27,12 +27,11 @@ module main =
         0
     let on_file f =
         printf "File %s\n" f
-        0
 
-    let rec allfiles = function
+    let rec all_files = function
         | [] -> 0
         | f :: rest -> on_file f;
-                        allfiles rest
+                        all_files rest
 
     let has_argument name short_name args =
         args |> Array.exists (fun x -> x = ("--" + name) || x = ("/" + name) || x = sprintf "-%s" short_name)
@@ -49,7 +48,7 @@ module main =
         else if (has_argument "version" "v" argv) then
             version ()
         else
-            argv |> Array.toList |> allfiles
+            argv |> Array.toList |> all_files
 (*
             strip_argument "help" "h" argv
 //                |> strip_argument "version" "v" argv
