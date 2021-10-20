@@ -12,7 +12,6 @@ J'ai fait le choix, depuis longtemps, de m'orienter vers les standards ML 90 ou 
 
 D'un autre côté, _SML/NJ_ paraissait complet et vraiment stable avec des outils intéressants (adaptations de _lex_ et _yacc_ au langage) avec beaucoup de documentation et, de plus, une dynamique importante dans la communauté autour de _SML/NJ_ et de quelques uns de ses dérivés.
 
-_F#_ ne m'a été visible que tardivement. Bien que ce soit un très bon langage, je le laisse momentanément de côté.
 
 Bien que plus de deux décennies nous séparent de ces choix discutables, je persiste. Parce que ce langage m'a résisté plus que je ne m'y attendait tout en me donnant beaucoup de leçons. 
 
@@ -25,4 +24,10 @@ Le meilleur site pour débuter est [Awesome Standard ML](https://github.com/i4ki
 - [MLton](http://mlton.org/),
 - [Moscow ML](https://mosml.org/).
 
-Voir aussi: [installation des dernières versions](installation.md).
+Voir aussi: 
+- [installation des dernières versions](installation.md),
+- [les fonctions](code/fonctions.md)
+
+## F#
+
+Voir [`F#`: introduction](code/fsharp-intro.md)
