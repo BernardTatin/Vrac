@@ -9,6 +9,7 @@
     <ItemGroup>
         <Compile Include="libtools.fsi" />
         <Compile Include="libtools.fs" />
+        <Compile Include="libint.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

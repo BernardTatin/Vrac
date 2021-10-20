@@ -13,6 +13,7 @@ module main =
 
     open System
     open Libraries.LibTool
+    open Libraries.LibInt
 
     let help exit_code =
         let lines = [ "integer-games command [OPTIONS] [PARAMETERS]";
@@ -24,12 +25,6 @@ module main =
         print_lines lines exit_code
 
 
-
-    let factorial n =
-        let rec inner_fact acc = function
-                | 0 | 1 -> acc
-                | k -> inner_fact (k * acc ) (k - 1)
-        inner_fact 1 n
 
     [<EntryPoint>]
     let main argv =
