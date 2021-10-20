@@ -10,7 +10,7 @@ namespace Hello
 (* we NEED a module *)
 module Main =
     // how to use an external module
-    open LibHello
+    open Libraries.LibHello
 
     [<EntryPoint>]
     let main argv =
@@ -22,6 +22,6 @@ module Main =
         // with LibHello.
         big_from (fs :: (me :: []))
         // command line parameters
-        big_from (argv |> Array.toList)
+        argv |> Array.toList |> big_from
 
         0 // return an integer exit code
