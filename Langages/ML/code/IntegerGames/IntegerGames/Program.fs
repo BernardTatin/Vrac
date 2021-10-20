@@ -21,15 +21,12 @@ module main =
                       "    version : show version and exit";
                       "    fact n1 [n2 [n3 ... ]] : compute factorial of each parameters";
                        ]
-        let iprintfn str =
-            printfn "%s" str
-        (foreach iprintfn lines
-         exit_code)
+        print_lines lines exit_code
+
 
 
     let factorial n =
-        let rec inner_fact acc k =
-            match k with
+        let rec inner_fact acc = function
                 | 0 | 1 -> acc
                 | k -> inner_fact (k * acc ) (k - 1)
         inner_fact 1 n
