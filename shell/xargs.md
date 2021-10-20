@@ -1,2 +1,0 @@
-# `xargs` et quelques autres
-
