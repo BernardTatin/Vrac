@@ -21,6 +21,7 @@ module main =
                       "    help : show this text and exit";
                       "    version : show version and exit";
                       "    fact n1 [n2 [n3 ... ]] : compute factorial of each parameters";
+                      "    fibo n1 [n2 [n3 ... ]] : compute Fibonacci number of each parameters";
                        ]
         print_lines lines exit_code
 
@@ -32,16 +33,21 @@ module main =
         let n = arg  |> int
         printfn "%d! = %d" n (factorial n)
 
-    let all_facts = function
+    let fibo arg =
+        let n = arg  |> int
+        printfn "fibo %d = %d" n (fibonacchi n)
+
+    let all_values f = function
         | [] -> help 1
-        | args -> (foreach fact args
+        | args -> (foreach f args
                    0)
 
     let do_command = function
         | [] -> help 0
         | "help" :: _ -> help 0
         | "version" :: _ -> version()
-        | "fact" :: tl -> all_facts tl
+        | "fact" :: tl -> all_values fact tl
+        | "fibo" :: tl -> all_values fibo tl
         | _ -> help 1
 
     [<EntryPoint>]
