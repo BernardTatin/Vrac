@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="libtools.fsi" />
         <Compile Include="libtools.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>

@@ -14,8 +14,8 @@ module LibTool =
         | hd :: tl    -> f hd;
                          foreach f tl
 
-    let print_lines lines exit_code =
+    let print_lines lines (exit_code: int) =
         let iprintfn str =
             printfn "%s" str
-        (foreach iprintfn lines
+        (foreach iprintfn lines;
          exit_code)
