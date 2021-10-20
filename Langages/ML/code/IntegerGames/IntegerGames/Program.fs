@@ -29,13 +29,15 @@ module main =
         let lines = ["IntegerGames version 0.1.0"]
         print_lines lines 0
 
-    let fact arg =
+    let show_1_result arg format f =
         let n = arg  |> int
-        printfn "%d! = %d" n (factorial n)
+        printfn format n (f n)
+
+    let fact arg =
+        show_1_result arg "%d! = %d" factorial
 
     let fibo arg =
-        let n = arg  |> int
-        printfn "fibo %d = %d" n (fibonacchi n)
+        show_1_result arg "fibo %d = %d" fibonacchi
 
     let all_values f = function
         | [] -> help 1
