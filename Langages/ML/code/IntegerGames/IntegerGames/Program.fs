@@ -1,17 +1,17 @@
 (*
-    fHexDump.fs
+    Program.fs
 
     bernard.tatin@outlook.fr
     2021-10-10
 
-    Hexdump written in F#
+    Integer Games
+    the real aim is to find some method to control number inputs
+    and operation overflow
  *)
 
 namespace integer_games
 
 module main =
-
-    open System
     open Libraries.LibTool
     open Libraries.LibInt
 
@@ -30,7 +30,7 @@ module main =
         print_lines lines 0
 
     let show_1_result arg format f =
-        let n = arg  |> int
+        let n = arg  |> str2int
         printfn format n (f n)
 
     let fact arg =

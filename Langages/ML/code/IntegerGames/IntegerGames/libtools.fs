@@ -19,3 +19,9 @@ module LibTool =
             printfn "%s" str
         (foreach iprintfn lines;
          exit_code)
+
+    let on_error message =
+        match (message) with
+            | "" -> eprintfn "FATAL ERROR!!"
+            | str -> eprintfn "ERROR %s!!" message
+        exit 1
