@@ -1,0 +1,22 @@
+# .gitignore
+
+# éditeurs
+.*.swp
+*.bak
+*~
+.idea/
+.vscode/
+
+# logs etc
+*.log
+log/
+tmp/
+
+*.code-workspace
+
+# F# files
+.fake
+.ionide
+Debug/
+Release/
+obj/
