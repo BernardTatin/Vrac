@@ -26,7 +26,7 @@ module main =
         print_lines lines exit_code
 
     let version() =
-        let lines = ["IntegerGames version 0.1.0"]
+        let lines = ["IntegerGames version 0.2.0"]
         print_lines lines 0
 
     let show_1_result arg format f =
