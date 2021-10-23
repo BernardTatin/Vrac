@@ -6,13 +6,13 @@
 *~
 .idea/
 .vscode/
+*.code-workspace
 
 # logs etc
 *.log
 log/
 tmp/
 
-*.code-workspace
 
 # F# files
 .fake
