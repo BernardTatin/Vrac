@@ -17,10 +17,10 @@ module main =
     // Define a function to construct a message to print
     let help exit_code =
         let lines =
-            [ (sprintf "%s - Some help from your friends\n" exe_name)
-              (sprintf "%s [OPTIONS] [FILES ...\n" exe_name)
-              (sprintf "%s [-h|--help]: show this text and exits\n" exe_name)
-              (sprintf "%s -v|--version: show the version informations then exits\n" exe_name) ]
+            [ (sprintf "%s - Some help from your friends" exe_name)
+              (sprintf "%s [OPTIONS] [FILES ..." exe_name)
+              (sprintf "%s [-h|--help]: show this text and exits" exe_name)
+              (sprintf "%s -v|--version: show the version informations then exits" exe_name) ]
 
         print_lines lines exit_code
 
@@ -46,7 +46,9 @@ module main =
 
     [<EntryPoint>]
     let main argv =
-        if (has_argument "help" "h" argv) then
+        if Array.isEmpty argv then
+            help 0
+        else if (has_argument "help" "h" argv) then
             help 0
         else if (has_argument "version" "v" argv) then
             version ()
