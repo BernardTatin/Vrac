@@ -7,6 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="..\..\..\fsharplibs\libtools.fs">
+          <Link>libtools.fs</Link>
+        </Compile>
         <Compile Include="libfiles.fs" />
         <Compile Include="fHexDump.fs" />
     </ItemGroup>
