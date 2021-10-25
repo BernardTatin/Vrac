@@ -53,21 +53,27 @@ module main =
         let add_str1 s1 s2 = sprintf "%s %s" s1 s2
         let add_str2 s1 s2 = sprintf "%s%s" s1 s2
 
-        while reader.Read(buffer, 0, bufferSize) <> 0 do
-            let hex =
-                buffer
-                |> Array.toList
-                |> List.map to_hex
-                |> List.fold add_str1 ""
+        let read_loop =
+            let mutable eof = false
+            while not eof do
+                let read_count = reader.Read(buffer, 0, bufferSize)
+                // Lisp always in my heart
+                let lst_buffer = buffer |> Array.take read_count |> Array.toList
+                let hex =
+                    lst_buffer
+                    |> List.map to_hex
+                    |> List.fold add_str1 ""
 
-            let asc =
-                buffer
-                |> Array.toList
-                |> List.map to_good_ascii
-                |> List.fold add_str2 ""
+                let asc =
+                    lst_buffer
+                    |> List.map to_good_ascii
+                    |> List.fold add_str2 ""
 
-            printfn "%08x %s '%s'" address hex asc
-            address <- address + bufferSize
+                printfn "%08x %s '%s'" address hex asc
+                address <- address + bufferSize
+                eof <- (read_count < bufferSize)
+
+        read_loop
 
     let rec all_files =
         function
