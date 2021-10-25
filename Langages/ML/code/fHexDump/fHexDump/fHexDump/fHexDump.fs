@@ -27,40 +27,70 @@ module main =
         print_lines lines exit_code
 
     let version () =
-        let lines = [ (sprintf "%s version %s" exe_name exe_version) ]
+        let lines =
+            [ (sprintf "%s version %s" exe_name exe_version) ]
+
         print_lines lines 0
 
     let on_file fileName =
-        use stream = File.Open(fileName, FileMode.Open, FileAccess.Read)
+        use stream =
+            File.Open(fileName, FileMode.Open, FileAccess.Read)
+
         use reader = new BinaryReader(stream)
 
         let bufferSize = 16
-        let mutable buffer :byte array = Array.zeroCreate bufferSize
+        let mutable address = 0
+        let mutable buffer: byte array = Array.zeroCreate bufferSize
+        let to_hex (b: byte) : string = sprintf "%02x" (int b)
 
-        let mutable eof = false
+        let to_good_ascii (b: byte) : string =
+            string (
+                if b < (byte 32) then '.'
+                else if b > (byte 126) then '.'
+                else Convert.ToChar(b)
+            )
 
-        while reader.Read(buffer,0,bufferSize) <> 0 && not eof do
-          let mutable position = 0
-          while position < buffer.Length && not eof do
-              let buf = buffer.[position]
-              if buf <> 0uy then
-                  printfn "%A" buf
-                  printfn "%A" (Convert.ToChar(buf))
-                  position <- position + 1
-              else
-                  eof <- true
+        let add_str1 s1 s2 = sprintf "%s %s" s1 s2
+        let add_str2 s1 s2 = sprintf "%s%s" s1 s2
 
-    let rec all_files = function
+        while reader.Read(buffer, 0, bufferSize) <> 0 do
+            let hex =
+                buffer
+                |> Array.toList
+                |> List.map to_hex
+                |> List.fold add_str1 ""
+
+            let asc =
+                buffer
+                |> Array.toList
+                |> List.map to_good_ascii
+                |> List.fold add_str2 ""
+
+            printfn "%08x %s '%s'" address hex asc
+            address <- address + bufferSize
+
+    let rec all_files =
+        function
         | [] -> 0
-        | f :: rest -> on_file f;
-                        all_files rest
+        | f :: rest ->
+            on_file f
+            all_files rest
 
     let has_argument name short_name args =
-        args |> Array.exists (fun x -> x = ("--" + name) || x = ("/" + name) || x = sprintf "-%s" short_name)
+        args
+        |> Array.exists
+            (fun x ->
+                x = ("--" + name)
+                || x = ("/" + name)
+                || x = sprintf "-%s" short_name)
+
     let strip_argument name short_name args =
-        args |> Array.filter (fun x -> x <> ("--" + name)
-                                           && x <> ("/" + name)
-                                           && x <> sprintf "-%s" short_name)
+        args
+        |> Array.filter
+            (fun x ->
+                x <> ("--" + name)
+                && x <> ("/" + name)
+                && x <> sprintf "-%s" short_name)
 
 
     [<EntryPoint>]
