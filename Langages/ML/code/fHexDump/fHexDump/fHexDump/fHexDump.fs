@@ -10,6 +10,8 @@
 namespace fHexDump
 
 module main =
+    open System
+    open System.IO
     open Libraries.LibTool
 
     let exe_name = "fHexDump"
@@ -28,8 +30,25 @@ module main =
         let lines = [ (sprintf "%s version %s" exe_name exe_version) ]
         print_lines lines 0
 
-    let on_file f =
-        printf "File %s\n" f
+    let on_file fileName =
+        use stream = File.Open(fileName, FileMode.Open, FileAccess.Read)
+        use reader = new BinaryReader(stream)
+
+        let bufferSize = 16
+        let mutable buffer :byte array = Array.zeroCreate bufferSize
+
+        let mutable eof = false
+
+        while reader.Read(buffer,0,bufferSize) <> 0 && not eof do
+          let mutable position = 0
+          while position < buffer.Length && not eof do
+              let buf = buffer.[position]
+              if buf <> 0uy then
+                  printfn "%A" buf
+                  printfn "%A" (Convert.ToChar(buf))
+                  position <- position + 1
+              else
+                  eof <- true
 
     let rec all_files = function
         | [] -> 0
