@@ -15,7 +15,7 @@ module main =
     open Libraries.LibTool
 
     let exe_name = "fHexDump"
-    let exe_version = "0.1.0"
+    let exe_version = "0.2.0"
     // Define a function to construct a message to print
     let help exit_code =
         let lines =
