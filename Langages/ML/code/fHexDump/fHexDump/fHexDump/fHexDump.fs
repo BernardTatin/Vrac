@@ -39,23 +39,18 @@ module main =
         use reader = new BinaryReader(stream)
 
         let bufferSize = 16
-        let mutable address = 0
         let mutable buffer: byte array = Array.zeroCreate bufferSize
         let to_hex (b: byte) : string = sprintf "%02x" (int b)
 
-        let to_good_ascii (b: byte) : string =
-            string (
-                if b < (byte 32) then '.'
-                else if b > (byte 126) then '.'
-                else Convert.ToChar(b)
-            )
+        let to_good_ascii (b: byte) =
+            if b < (byte 32) then "."
+            else if b > (byte 126) then "."
+            else (string (Convert.ToChar(b)))
 
-        let add_str1 s1 s2 = sprintf "%s %s" s1 s2
-        let add_str2 s1 s2 = sprintf "%s%s" s1 s2
+        let add_str1 s1 s2 = s1 + " " + s2
+        let add_str2 s1 s2 = s1 + s2
 
-        let read_loop =
-            let mutable eof = false
-            while not eof do
+        let rec read_loop address =
                 let read_count = reader.Read(buffer, 0, bufferSize)
                 // Lisp always in my heart
                 let lst_buffer = buffer |> Array.take read_count |> Array.toList
@@ -70,16 +65,18 @@ module main =
                     |> List.fold add_str2 ""
 
                 printfn "%08x %s '%s'" address hex asc
-                address <- address + bufferSize
-                eof <- (read_count < bufferSize)
+                if read_count = bufferSize then
+                    read_loop (address + bufferSize)
+                else
+                    0
 
-        read_loop
+        read_loop 0
 
     let rec all_files =
         function
         | [] -> 0
         | f :: rest ->
-            on_file f
+            on_file f |> ignore
             all_files rest
 
     let has_argument name short_name args =
