@@ -12,7 +12,7 @@ namespace fHexDump
 module main =
     open System
     open System.IO
-    open Libraries.LibTool
+    open Libraries.LibTools
 
    // not in the command line parameters
     let exe_name = "fHexDump"

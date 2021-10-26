@@ -12,7 +12,7 @@
 namespace integer_games
 
 module main =
-    open Libraries.LibTool
+    open Libraries.LibTools
     open Libraries.LibInt
 
     let help exit_code =

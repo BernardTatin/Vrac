@@ -8,7 +8,7 @@ namespace Libraries
 
 (* the module name *)
 module LibHello =
-    open LibTool
+    open LibTools
 
     // cf. libhello.fsi
     let from whom =

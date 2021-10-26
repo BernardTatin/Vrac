@@ -9,7 +9,7 @@
 namespace Libraries
 
 (* the module name *)
-module LibTool =
+module LibTools =
     // foreach as in Scheme:
     //      foreach f list
     //          f : function 'a -> unit to apply on each element of the list

@@ -10,7 +10,7 @@ namespace Libraries
 (* the module name *)
 module LibInt =
     open System
-    open Libraries.LibTool
+    open Libraries.LibTools
 
     let safe_add x y =
         let bad = (x > (System.Int32.MaxValue - y))
