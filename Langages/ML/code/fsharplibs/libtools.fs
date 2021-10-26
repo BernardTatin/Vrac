@@ -1,6 +1,8 @@
 (*
     libtools.fs
     A general purpose library
+    Some code exist certainly in F# language/libraries,
+    I know it, it's for learning
 *)
 
 (* global namespace *)
@@ -8,7 +10,10 @@ namespace Libraries
 
 (* the module name *)
 module LibTool =
-    // foreach as in Scheme: see libtools.fsi
+    // foreach as in Scheme:
+    //      foreach f list
+    //          f : function 'a -> unit to apply on each element of the list
+    //          list : 'a list, the list
     let rec foreach f = function
         | []          -> ()
         | hd :: tl    -> f hd;

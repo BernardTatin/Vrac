@@ -5,9 +5,13 @@
     <WarnOn>3390;$(WarnOn)</WarnOn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="libtool.fsi" />
+    <Compile Include="..\..\fsharplibs\libtools.fsi">
+      <Link>libtools.fsi</Link>
+    </Compile>
     <Compile Include="libhello.fsi" />
-    <Compile Include="libtool.fs" />
+    <Compile Include="..\..\fsharplibs\libtools.fs">
+      <Link>libtools.fs</Link>
+    </Compile>
     <Compile Include="libhello.fs" />
     <Compile Include="hello.fs" />
   </ItemGroup>

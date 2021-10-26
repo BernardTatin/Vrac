@@ -15,3 +15,5 @@ module LibTool =
     val foreach : ('a -> unit) -> 'a list -> unit
 
     val print_lines : string list -> int -> int
+
+    val on_error : string -> 'a

@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="libtools.fs" />
+        <Compile Include="..\..\fsharplibs\libtools.fs">
+          <Link>libtools.fs</Link>
+        </Compile>
         <Compile Include="libint.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
