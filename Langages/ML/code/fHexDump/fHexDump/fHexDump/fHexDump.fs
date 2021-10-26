@@ -14,9 +14,10 @@ module main =
     open System.IO
     open Libraries.LibTool
 
+   // not in the command line parameters
     let exe_name = "fHexDump"
     let exe_version = "0.2.0"
-    // Define a function to construct a message to print
+    // Show the help message
     let help exit_code =
         let lines =
             [ (sprintf "%s - Some help from your friends" exe_name)
@@ -26,52 +27,67 @@ module main =
 
         print_lines lines exit_code
 
+    // Show the version
     let version () =
         let lines =
             [ (sprintf "%s version %s" exe_name exe_version) ]
 
         print_lines lines 0
 
+    // hexdump core
     let on_file fileName =
+        // open the file
+        // TODO: manage errors
         use stream =
             File.Open(fileName, FileMode.Open, FileAccess.Read)
-
+        // create a binary reader
         use reader = new BinaryReader(stream)
 
+        // size of read buffer
         let bufferSize = 16
+        // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate bufferSize
-        let to_hex (b: byte) : string = sprintf "%02x" (int b)
 
+        // byte to hexadecimal
+        let to_hex (b: byte) : string = sprintf "%02x" (int b)
+        // byte to ASCII: only values from 32 to 126 are unchanged,
+        // others are replaced by '.'
         let to_good_ascii (b: byte) =
             if b < (byte 32) then "."
             else if b > (byte 126) then "."
             else (string (Convert.ToChar(b)))
 
+        // functions to construct hexadecimal and ASCII strings
         let add_str1 s1 s2 = s1 + " " + s2
         let add_str2 s1 s2 = s1 + s2
 
+        // the main loop to read and print
         let rec read_loop address =
+                // read the buffer
                 let read_count = reader.Read(buffer, 0, bufferSize)
-                // Lisp always in my heart
+                // Lisp always in my mind: buffer transformed in list
                 let lst_buffer = buffer |> Array.take read_count |> Array.toList
+                // hexadecimal string creation
                 let hex =
                     lst_buffer
                     |> List.map to_hex
                     |> List.fold add_str1 ""
-
+                // ASCII string creation
                 let asc =
                     lst_buffer
                     |> List.map to_good_ascii
                     |> List.fold add_str2 ""
-
-                printfn "%08x %s '%s'" address hex asc
+                // print the result
+                printfn "%08x %-48s '%s'" address hex asc
+                // if not end of file, loop
                 if read_count = bufferSize then
                     read_loop (address + bufferSize)
                 else
                     0
-
+        // do it, baby!
         read_loop 0
 
+    // hexdump all files
     let rec all_files =
         function
         | [] -> 0
@@ -79,6 +95,7 @@ module main =
             on_file f |> ignore
             all_files rest
 
+    // search a command line argument
     let has_argument name short_name args =
         args
         |> Array.exists
@@ -86,15 +103,6 @@ module main =
                 x = ("--" + name)
                 || x = ("/" + name)
                 || x = sprintf "-%s" short_name)
-
-    let strip_argument name short_name args =
-        args
-        |> Array.filter
-            (fun x ->
-                x <> ("--" + name)
-                && x <> ("/" + name)
-                && x <> sprintf "-%s" short_name)
-
 
     [<EntryPoint>]
     let main argv =
