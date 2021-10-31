@@ -12,24 +12,23 @@ namespace Libraries
 module LibFiles =
     open System.IO
     open Libraries.LibTools
-    let binary_file_reader fileName  on_rcv_buffer buffer_size =
+
+    let binary_file_reader fileName on_rcv_buffer buffer_size =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate buffer_size
         // NOTE: use is like let with the release of the resource at
         //       the end of the block, here the file is closed
         // open the file
         // TODO: needs a better management of errors when opening a file
-        let stream =
+        let some_stream =
             try
                 Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
             with
-                | :? FileNotFoundException ->
-                    on_error (sprintf $"Cannot open file '{fileName}") 1
-                | ex ->
-                    on_error (sprintf $"FATAL {ex.Message} '{fileName}") 1
-
+            | :? FileNotFoundException -> on_error (sprintf $"Cannot open file '{fileName}") 1
+            | ex -> on_error (sprintf $"FATAL {ex.Message} '{fileName}") 1
+        use stream = some_stream.Value
         // create a binary reader
-        use reader = new BinaryReader(stream.Value)
+        use reader = new BinaryReader(stream)
 
 
         // the main loop to read and print
@@ -48,6 +47,4 @@ module LibFiles =
             else
                 0
         // do it, baby!
-        read_loop 0 |> ignore
-        stream.Value.Close()
-        0
+        read_loop 0
