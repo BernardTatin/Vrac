@@ -13,17 +13,17 @@ module LibInt =
     open Libraries.LibTools
 
     let safe_add x y =
-        let bad = (x > (System.Int32.MaxValue - y))
+        let bad = (x > (Int32.MaxValue - y))
         if bad then
-            on_error (sprintf "overflow on %d + %d" x y)
+            on_error (sprintf $"overflow on {x} + {y}")
             0
         else
             x + y
 
     let safe_mul x y =
-        let bad = (x > (System.Int32.MaxValue / y))
+        let bad = (x > (Int32.MaxValue / y))
         if bad then
-            on_error (sprintf "overflow on %d * %d" x y)
+            on_error (sprintf $"overflow on {x} * {y}")
             0
         else
             x * y
@@ -36,9 +36,9 @@ module LibInt =
 
     let fibonacchi n =
         let rec inner_fibo = function
-            | (0, a, _) -> a
-            | (1, _, b) -> b
-            | (k, a, b) -> inner_fibo ((k - 1), b, (safe_add a b))
+            | 0, a, _ -> a
+            | 1, _, b -> b
+            | k, a, b -> inner_fibo ((k - 1), b, (safe_add a b))
         inner_fibo (n, 0, 1)
 
     let str2int (str: string) =

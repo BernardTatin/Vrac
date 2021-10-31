@@ -14,19 +14,20 @@ module LibTools =
     //      foreach f list
     //          f : function 'a -> unit to apply on each element of the list
     //          list : 'a list, the list
+    // F# has List.iter
     let rec foreach f = function
         | []          -> ()
         | hd :: tl    -> f hd;
                          foreach f tl
 
-    let print_lines lines (exit_code: int) =
+    let print_lines (lines: string list) (exit_code: int) =
         let iprintfn str =
-            printfn "%s" str
-        (foreach iprintfn lines;
-         exit_code)
+            printfn $"{str}"
+        List.iter iprintfn lines
+        exit_code
 
     let on_error message =
-        match (message) with
+        match message with
             | "" -> eprintfn "FATAL ERROR!!"
-            | str -> eprintfn "ERROR %s!!" message
+            | str -> eprintfn $"ERROR {message}!!"
         exit 1
