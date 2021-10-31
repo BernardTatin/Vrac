@@ -14,6 +14,8 @@ module LibFiles =
     let binary_file_reader fileName  on_rcv_buffer buffer_size =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate buffer_size
+        // NOTE: use is like let with the release of the resource at
+        //       the end of the block, here the file is closed
         // open the file
         // TODO: manage errors
         use stream =
@@ -30,6 +32,7 @@ module LibFiles =
             let lst_buffer =
                 buffer |> Array.take read_count |> Array.toList
 
+            // call the callback function
             on_rcv_buffer address lst_buffer
             // if not end of file, loop
             if read_count = buffer_size then

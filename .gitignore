@@ -20,6 +20,7 @@ tmp/
 Debug/
 Release/
 obj/
+*.sln.DotSettings.user
 
 # Compilation/build residues
 *.exe
