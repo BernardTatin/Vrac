@@ -63,7 +63,7 @@ module main =
     // size of read buffer
     let bufferSize = 16
     // hexdump core
-    let on_file fileName  on_rcv_buffer buffer_size =
+    let binary_file_reader fileName  on_rcv_buffer buffer_size =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate bufferSize
         // open the file
@@ -96,7 +96,7 @@ module main =
         function
         | [] -> 0
         | f :: rest ->
-            on_file f on_buffer bufferSize |> ignore
+            binary_file_reader f on_buffer bufferSize |> ignore
             all_files rest
 
     // search a command line argument
