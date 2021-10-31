@@ -20,3 +20,6 @@ tmp/
 Debug/
 Release/
 obj/
+
+# Compilation/build residues
+*.exe
