@@ -10,7 +10,6 @@
 namespace Libraries
 
 module LibFiles =
-    open System
     open System.IO
     let binary_file_reader fileName  on_rcv_buffer buffer_size =
         // the buffer: a byte array of 'bufferSize' length
