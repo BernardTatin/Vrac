@@ -10,7 +10,9 @@
         <Compile Include="..\..\fsharplibs\libtools.fs">
           <Link>libtools.fs</Link>
         </Compile>
-        <Compile Include="libint.fs" />
+        <Compile Include="..\..\fsharplibs\libint.fs">
+          <Link>libint.fs</Link>
+        </Compile>
         <Compile Include="Program.fs" />
     </ItemGroup>
 
