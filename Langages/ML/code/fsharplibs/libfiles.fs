@@ -19,7 +19,7 @@ module LibFiles =
         // NOTE: use is like let with the release of the resource at
         //       the end of the block, here the file is closed
         // open the file
-        // TODO: needs a better management of errors when opening a file
+        // DONE: needs a better management of errors when opening a file
         let some_stream =
             try
                 Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
@@ -35,16 +35,19 @@ module LibFiles =
         let rec read_loop address =
             // read the buffer
             let read_count = reader.Read(buffer, 0, buffer_size)
-            // Lisp always in my mind: buffer transformed in list
-            let lst_buffer =
-                buffer |> Array.take read_count |> Array.toList
-
-            // call the callback function
-            on_rcv_buffer address lst_buffer
-            // if not end of file, loop
-            if read_count = buffer_size then
-                read_loop (address + buffer_size)
-            else
+            if read_count = 0 then
                 0
+            else
+                // Lisp always in my mind: buffer transformed in list
+                let lst_buffer =
+                    buffer |> Array.take read_count |> Array.toList
+
+                // call the callback function
+                on_rcv_buffer address lst_buffer
+                // if not end of file, loop
+                if read_count = buffer_size then
+                    read_loop (address + buffer_size)
+                else
+                    0
         // do it, baby!
         read_loop 0

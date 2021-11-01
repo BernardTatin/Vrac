@@ -13,6 +13,7 @@ module main =
     open System
     open Libraries.LibTools
     open Libraries.LibFiles
+    open Libraries.LibInt
 
     // not in the command line parameters
     let exe_name = "fHexDump"
@@ -21,9 +22,11 @@ module main =
     let help exit_code =
         let lines =
             [ (sprintf "%s - Some help from your friends" exe_name)
-              (sprintf "%s [OPTIONS] [FILES ..." exe_name)
               (sprintf "%s [-h|--help]: show this text and exits" exe_name)
-              (sprintf "%s -v|--version: show the version informations then exits" exe_name) ]
+              (sprintf "%s -v|--version: show the version informations then exits" exe_name)
+              (sprintf "%s [OPTIONS] [FILES ..." exe_name)
+              "OPTIONS:"
+              "     -w|--width integer: number of bytes on each lines" ]
 
         print_lines lines exit_code
 
@@ -33,6 +36,12 @@ module main =
             [ (sprintf "%s version %s" exe_name exe_version) ]
 
         print_lines lines 0
+
+    // size of read buffer
+    let mutable bufferSize = 16
+
+    let mutable format: Printf.TextWriterFormat<_> =
+        Printf.TextWriterFormat<_>(sprintf "%%08x: %%-%ds '%%s'" (bufferSize * 3))
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
@@ -58,18 +67,27 @@ module main =
             |> List.map to_good_ascii
             |> List.fold add_str2 ""
         // print the result
-        printfn "%08x %-48s '%s'" address hex asc
+        printfn format address hex asc
+    // $"%08x{address}: %-48s{hex} %s{asc}"
 
-    // size of read buffer
-    let bufferSize = 16
     // hexdump core
 
     // hexdump all files
     let rec all_files =
         function
         | [] -> 0
+        | "--width" :: rest
+        | "-w" :: rest ->
+            match rest with
+            | [] -> help 1
+            | istr :: rest ->
+                bufferSize <- str2int istr
+                format <- Printf.TextWriterFormat<_>(sprintf "%%08x: %%-%ds '%%s'" (bufferSize * 3))
+                all_files rest
         | f :: rest ->
-            binary_file_reader f on_buffer bufferSize |> ignore
+            binary_file_reader f on_buffer bufferSize
+            |> ignore
+
             all_files rest
 
     // search a command line argument
