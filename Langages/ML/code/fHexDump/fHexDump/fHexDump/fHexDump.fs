@@ -67,7 +67,7 @@ module main =
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
-        let to_hex (b: byte) : string = sprintf "%02x" (int b)
+        let to_hex (b: byte) : string = sprintf "%02x " (int b)
         // byte to ASCII: only values from 32 to 126 are unchanged,
         // others are replaced by '.'
         let to_good_ascii (b: byte) =
@@ -76,23 +76,19 @@ module main =
             else (string (Convert.ToChar(b)))
 
         // functions to construct hexadecimal and ASCII strings
-        let add_str1 s1 s2 = s1 + " " + s2
-        let add_str2 s1 s2 = s1 + s2
+        let add_str s1 s2 = s1 + s2
         // hexadecimal string creation
         let hex =
             lst_buffer
             |> List.map to_hex
-            |> List.fold add_str1 ""
+            |> List.fold add_str ""
         // ASCII string creation
         let asc =
             lst_buffer
             |> List.map to_good_ascii
-            |> List.fold add_str2 ""
+            |> List.fold add_str ""
         // print the result
         printfn format address hex asc
-    // $"%08x{address}: %-48s{hex} %s{asc}"
-
-    // hexdump core
 
     // hexdump all files
     let rec all_files =
