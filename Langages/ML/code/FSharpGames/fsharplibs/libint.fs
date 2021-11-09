@@ -36,39 +36,39 @@ module LibInt =
     open System
     open Libraries.LibTools
 
-    let safe_add x y =
-        let bad = (x > (Int32.MaxValue - y))
+    let safe_add (x : int64) (y : int64) : int64 =
+        let bad = (x > (Int64.MaxValue - y))
         if bad then
             on_error (sprintf $"overflow on {x} + {y}")
-            0
+            0L
         else
             x + y
 
-    let safe_mul x y =
-        let bad = (x > (Int32.MaxValue / y))
+    let safe_mul (x : int64) (y : int64) : int64 =
+        let bad = (x > (Int64.MaxValue / y))
         if bad then
             on_error (sprintf $"overflow on {x} * {y}")
-            0
+            0L
         else
             x * y
 
-    let factorial n =
+    let factorial (n : int64) : int64 =
         let rec inner_fact acc = function
-                | 0 | 1 -> acc
-                | k -> inner_fact (safe_mul k acc) (k - 1)
-        inner_fact 1 n
+                | 0L | 1L -> acc
+                | k -> inner_fact (safe_mul k acc) (k - 1L)
+        inner_fact 1L n
 
     let fibonacchi n =
         let rec inner_fibo = function
-            | 0, a, _ -> a
-            | 1, _, b -> b
-            | k, a, b -> inner_fibo ((k - 1), b, (safe_add a b))
-        inner_fibo (n, 0, 1)
+            | 0L, a, _ -> a
+            | 1L, _, b -> b
+            | k, a, b -> inner_fibo ((k - 1L), b, (safe_add a b))
+        inner_fibo (n, 0L, 1L)
 
     let str2int (str: string) =
-        let mutable result = 0
-        if Int32.TryParse(str, &result) then
+        let mutable result : int64 = int64 0
+        if Int64.TryParse(str, &result) then
             result
         else
             on_error (sprintf "Unable to transform '%s' as an integer" str) |> ignore
-            0
+            int64 0
