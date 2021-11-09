@@ -40,6 +40,8 @@ module main =
     // not in the command line parameters
     let exe_name = "fHexDump"
     let exe_version = "0.2.0"
+    // show binary format
+    let mutable is_binary = false
     // Show the help message
     let help exit_code =
         let lines =
@@ -67,7 +69,10 @@ module main =
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
-        let to_hex (b: byte) : string = sprintf "%02x " (int b)
+        let to_hex (b: byte) : string =
+            sprintf "%02x " (int b)
+//            if is_binary then (sprintf "%02x " (int b))
+//                         else  (sprintf "%B " (int b))
         // byte to ASCII: only values from 32 to 126 are unchanged,
         // others are replaced by '.'
         let to_good_ascii (b: byte) =
@@ -94,6 +99,14 @@ module main =
     let rec all_files =
         function
         | [] -> 0
+        | "--hexa" :: rest
+        | "-x" :: rest ->
+            is_binary <- false
+            all_files rest
+        | "--binary" :: rest
+        | "-b" :: rest ->
+            is_binary <- true
+            all_files rest
         | "--width" :: rest
         | "-w" :: rest ->
             match rest with
