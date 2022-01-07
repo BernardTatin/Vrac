@@ -21,6 +21,9 @@
         <Compile Include="..\..\fsharplibs\libint.fs">
           <Link>libint.fs</Link>
         </Compile>
+        <Compile Include="..\..\fsharplibs\libarithmetics.fs">
+          <Link>libarithmetics.fs</Link>
+        </Compile>
         <Compile Include="Program.fs" />
     </ItemGroup>
 

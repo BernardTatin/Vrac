@@ -32,38 +32,18 @@ namespace Libraries
 
 
 (* the module name *)
-module LibInt =
-    open System
-    open Libraries.LibTools
+module LibArithmetics =
+    open Libraries.LibInt
 
-    let safe_add (x : int64) (y : int64) : int64 =
-        let bad = (x > (Int64.MaxValue - y))
-        if bad then
-            on_error (sprintf $"overflow on {x} + {y}")
-            0L
-        else
-            x + y
+    let factorial (n : int64) : int64 =
+        let rec inner_fact acc = function
+                | 0L | 1L -> acc
+                | k -> inner_fact (safe_mul k acc) (k - 1L)
+        inner_fact 1L n
 
-    let safe_mul (x : int64) (y : int64) : int64 =
-        let bad = (x > (Int64.MaxValue / y))
-        if bad then
-            on_error (sprintf $"overflow on {x} * {y}")
-            0L
-        else
-            x * y
-
-    let str2int (str: string) =
-        let mutable result = 0
-        if Int32.TryParse(str, &result) then
-            result
-        else
-            on_error (sprintf "Unable to transform '%s' as an integer" str) |> ignore
-            0
-
-    let str2int64 (str: string) =
-        let mutable result : int64 = int64 0
-        if Int64.TryParse(str, &result) then
-            result
-        else
-            on_error (sprintf "Unable to transform '%s' as an 64 bits integer" str) |> ignore
-            int64 0
+    let fibonacchi n =
+        let rec inner_fibo = function
+            | 0L, a, _ -> a
+            | 1L, _, b -> b
+            | k, a, b -> inner_fibo ((k - 1L), b, (safe_add a b))
+        inner_fibo (n, 0L, 1L)
