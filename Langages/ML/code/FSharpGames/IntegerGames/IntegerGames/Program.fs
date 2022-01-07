@@ -52,7 +52,7 @@ module main =
         print_lines lines 0
 
     let show_1_result arg format f =
-        let n = arg  |> str2int
+        let n = arg  |> str2int64
         printfn format n (f n)
 
     let fact arg =

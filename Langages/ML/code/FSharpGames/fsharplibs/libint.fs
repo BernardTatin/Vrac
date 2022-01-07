@@ -66,9 +66,17 @@ module LibInt =
         inner_fibo (n, 0L, 1L)
 
     let str2int (str: string) =
+        let mutable result = 0
+        if Int32.TryParse(str, &result) then
+            result
+        else
+            on_error (sprintf "Unable to transform '%s' as an integer" str) |> ignore
+            0
+
+    let str2int64 (str: string) =
         let mutable result : int64 = int64 0
         if Int64.TryParse(str, &result) then
             result
         else
-            on_error (sprintf "Unable to transform '%s' as an integer" str) |> ignore
+            on_error (sprintf "Unable to transform '%s' as an 64 bits integer" str) |> ignore
             int64 0

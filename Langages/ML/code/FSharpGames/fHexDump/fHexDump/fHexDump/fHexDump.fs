@@ -39,7 +39,7 @@ module main =
 
     // not in the command line parameters
     let exe_name = "fHexDump"
-    let exe_version = "0.2.0"
+    let exe_version = "0.2.1"
     // show binary format
     let mutable is_binary = false
     // Show the help message
