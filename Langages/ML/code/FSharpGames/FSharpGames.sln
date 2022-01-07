@@ -6,6 +6,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "hello", "fsharp-level-0\hel
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IntegerGames", "IntegerGames\IntegerGames\IntegerGames.fsproj", "{02F7204E-A56C-4379-8F03-B5A3687603CA}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Libraries", "Libraries\Libraries.fsproj", "{96CCEA21-7548-46C9-A8A3-D4CB10D22BC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{02F7204E-A56C-4379-8F03-B5A3687603CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02F7204E-A56C-4379-8F03-B5A3687603CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02F7204E-A56C-4379-8F03-B5A3687603CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CCEA21-7548-46C9-A8A3-D4CB10D22BC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CCEA21-7548-46C9-A8A3-D4CB10D22BC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CCEA21-7548-46C9-A8A3-D4CB10D22BC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CCEA21-7548-46C9-A8A3-D4CB10D22BC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
