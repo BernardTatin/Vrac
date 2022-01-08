@@ -70,6 +70,6 @@ module LibFiles =
                 if read_count = buffer_size then
                     read_loop (address + buffer_size)
                 else
-                    0
+                    address + read_count
         // do it, baby!
         read_loop 0

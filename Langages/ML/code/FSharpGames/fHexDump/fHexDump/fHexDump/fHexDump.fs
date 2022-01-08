@@ -5,6 +5,9 @@
 
     Hexdump written in F#
 
+    try: (Zsh)
+    diff -y --suppress-common-lines  <(hexdump -vC ~/nohup.out | tr -s ' ') <(fHexDump -w 16 ~/nohup.out  | tr -s ' ')
+
     The MIT License (MIT)
 
     Copyright (c) 2021 Bernard TATIN
@@ -39,7 +42,7 @@ module main =
 
     // not in the command line parameters
     let exe_name = "fHexDump"
-    let exe_version = "0.2.1"
+    let exe_version = "0.2.2"
     // show binary format
     let mutable is_binary = false
     // Show the help message
@@ -64,8 +67,9 @@ module main =
     // size of read buffer
     let mutable bufferSize = 16
 
-    let mutable format: Printf.TextWriterFormat<_> =
-        Printf.TextWriterFormat<_>(sprintf "%%08x: %%-%ds '%%s'" (bufferSize * 3))
+    let format (newBufferSize: int) : Printf.TextWriterFormat<_> =
+        bufferSize <- newBufferSize;
+        Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (bufferSize * 3))
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
@@ -93,7 +97,7 @@ module main =
             |> List.map to_good_ascii
             |> List.fold add_str ""
         // print the result
-        printfn format address hex asc
+        printfn (format bufferSize) address hex asc
 
     // hexdump all files
     let rec all_files =
@@ -112,11 +116,11 @@ module main =
             match rest with
             | [] -> help 1
             | istr :: rest ->
-                bufferSize <- str2int istr
-                format <- Printf.TextWriterFormat<_>(sprintf "%%08x: %%-%ds '%%s'" (bufferSize * 3))
+                format (str2int istr) |> ignore
                 all_files rest
         | f :: rest ->
-            binary_file_reader f on_buffer bufferSize
+            let lastAddress = binary_file_reader f on_buffer bufferSize
+            printfn "%08x" lastAddress
             |> ignore
 
             all_files rest
