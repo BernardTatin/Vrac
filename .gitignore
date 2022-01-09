@@ -25,3 +25,6 @@ obj/
 
 # Compilation/build residues
 *.exe
+
+# others
+*.color
