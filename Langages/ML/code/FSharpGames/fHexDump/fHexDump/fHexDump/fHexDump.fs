@@ -48,19 +48,19 @@ module main =
     // Show the help message
     let help exit_code =
         let lines =
-            [ (sprintf "%s - Some help from your friends" exe_name)
-              (sprintf "%s [-h|--help]: show this text and exits" exe_name)
-              (sprintf "%s -v|--version: show the version informations then exits" exe_name)
-              (sprintf "%s [OPTIONS] [FILES ..." exe_name)
+            [ $"{exe_name} - Some help from your friends"
+              $"{exe_name} [-h|--help]: show this text and exits"
+              $"{exe_name} -v|--version: show the version informations then exits"
+              $"{exe_name} [OPTIONS] [FILES ..."
               "OPTIONS:"
               "     -w|--width integer: number of bytes on each lines" ]
 
         print_lines lines exit_code
 
     // Show the version
-    let version () =
+    let rec version () =
         let lines =
-            [ (sprintf "%s version %s" exe_name exe_version) ]
+            [ $"{exe_name} version {version}" ]
 
         print_lines lines 0
 
@@ -74,7 +74,7 @@ module main =
     let on_buffer address lst_buffer =
         // byte to hexadecimal
         let to_hex (b: byte) : string =
-            sprintf "%02x " (int b)
+            $"%02x{int b} "
 //            if is_binary then (sprintf "%02x " (int b))
 //                         else  (sprintf "%B " (int b))
         // byte to ASCII: only values from 32 to 126 are unchanged,
@@ -120,7 +120,7 @@ module main =
                 all_files rest
         | f :: rest ->
             let lastAddress = binary_file_reader f on_buffer bufferSize
-            printfn "%08x" lastAddress
+            printfn $"%08x{lastAddress}"
             |> ignore
 
             all_files rest
@@ -132,7 +132,7 @@ module main =
             (fun x ->
                 x = ("--" + name)
                 || x = ("/" + name)
-                || x = sprintf "-%s" short_name)
+                || x = $"-{short_name}")
 
     [<EntryPoint>]
     let main argv =

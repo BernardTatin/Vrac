@@ -39,7 +39,7 @@ module LibInt =
     let safe_add (x : int64) (y : int64) : int64 =
         let bad = (x > (Int64.MaxValue - y))
         if bad then
-            on_error (sprintf $"overflow on {x} + {y}")
+            on_error $"overflow on {x} + {y}"
             0L
         else
             x + y
@@ -47,7 +47,7 @@ module LibInt =
     let safe_mul (x : int64) (y : int64) : int64 =
         let bad = (x > (Int64.MaxValue / y))
         if bad then
-            on_error (sprintf $"overflow on {x} * {y}")
+            on_error $"overflow on {x} * {y}"
             0L
         else
             x * y
@@ -57,7 +57,7 @@ module LibInt =
         if Int32.TryParse(str, &result) then
             result
         else
-            on_error (sprintf "Unable to transform '%s' as an integer" str) |> ignore
+            on_error $"Unable to transform '{str}' as an integer" |> ignore
             0
 
     let str2int64 (str: string) =
@@ -65,5 +65,5 @@ module LibInt =
         if Int64.TryParse(str, &result) then
             result
         else
-            on_error (sprintf "Unable to transform '%s' as an 64 bits integer" str) |> ignore
+            on_error $"Unable to transform '{str}' as an 64 bits integer" |> ignore
             int64 0

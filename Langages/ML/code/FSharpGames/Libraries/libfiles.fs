@@ -46,8 +46,8 @@ module LibFiles =
             try
                 Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
             with
-            | :? FileNotFoundException -> on_error (sprintf $"Cannot open file '{fileName}") 1
-            | ex -> on_error (sprintf $"FATAL {ex.Message} '{fileName}") 1
+            | :? FileNotFoundException -> on_error $"Cannot open file '{fileName}'" 1
+            | ex -> on_error $"FATAL {ex.Message} '{fileName}" 1
         use stream = some_stream.Value
         // create a binary reader
         use reader = new BinaryReader(stream)
