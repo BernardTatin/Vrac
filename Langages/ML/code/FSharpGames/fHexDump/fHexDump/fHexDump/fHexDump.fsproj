@@ -12,6 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="fhVersion.fs" />
+        <Compile Include="fhHelp.fs" />
         <Compile Include="fHexDump.fs" />
     </ItemGroup>
 

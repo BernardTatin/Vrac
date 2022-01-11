@@ -39,31 +39,11 @@ module main =
     open Libraries.LibTools
     open Libraries.LibFiles
     open Libraries.LibInt
+    open fHexDump.Version
+    open fHexDump.Help
 
-    // not in the command line parameters
-    let exe_name = "fHexDump"
-    let exe_version = "0.3.1"
     // show binary format
     let mutable is_binary = false
-    // Show the help message
-    let help exit_code =
-        let lines =
-            [ $"{exe_name} - A little help from your friends"
-              $"{exe_name} [-h|--help]: the little help from your friends"
-              $"{exe_name} -v|--version: show the version information then exits"
-              $"{exe_name} [OPTIONS] [FILES ..."
-              "OPTIONS:"
-              "     -b|--binary: print in binary"
-              "     -x|--hexa: print in hexadecimal (default)"
-              "     -w|--width integer: number of bytes on each lines" ]
-
-        print_lines lines exit_code
-
-    // Show the version
-    let rec version () =
-        let lines = [ $"{exe_name} version {version}" ]
-
-        print_lines lines 0
 
     // size of read buffer
     let mutable bufferSize = 16
