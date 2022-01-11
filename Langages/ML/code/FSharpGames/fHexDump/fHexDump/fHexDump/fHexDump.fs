@@ -68,7 +68,8 @@ module main =
     // size of read buffer
     let mutable bufferSize = 16
 
-    let getFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
+    // closure to get the format of the full line
+    let getFullLineFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
         let newFormat =
             if is_binary then
                 Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 9))
@@ -79,8 +80,10 @@ module main =
         bufferSize <- newBufferSize
         returnF
 
-    let mutable format = getFormat (bufferSize)
+    // the current format of the full line
+    let mutable fullLineFormat = getFullLineFormat (bufferSize)
 
+    // called on each buffer read
     let on_buffer address lst_buffer =
         // byte to hexadecimal
         let to_hex (b: byte) : string =
@@ -108,38 +111,38 @@ module main =
             |> List.map to_good_ascii
             |> List.fold add_str ""
         // print the result
-        printfn (format ()) address hex asc
+        printfn (fullLineFormat ()) address hex asc
 
     // hexdump all files
-    let rec all_files =
+    let rec on_argument =
         function
         | [] -> 0
         | "--hexa" :: rest
         | "-x" :: rest ->
             is_binary <- false
-            format <- getFormat (bufferSize)
-            all_files rest
+            fullLineFormat <- getFullLineFormat (bufferSize)
+            on_argument rest
         | "--binary" :: rest
         | "-b" :: rest ->
             is_binary <- true
-            format <- getFormat (bufferSize)
-            all_files rest
+            fullLineFormat <- getFullLineFormat (bufferSize)
+            on_argument rest
         | "--width" :: rest
         | "-w" :: rest ->
             match rest with
             | [] -> help 1
             | iStr :: rest ->
-                format <- getFormat (str2int iStr)
-                all_files rest
+                fullLineFormat <- getFullLineFormat (str2int iStr)
+                on_argument rest
         | f :: rest ->
             let lastAddress =
                 binary_file_reader f on_buffer bufferSize
 
             printfn $"%08x{lastAddress}" |> ignore
 
-            all_files rest
+            on_argument rest
 
-    // search a command line argument
+    // search a specific command line argument
     let has_argument name short_name args =
         args
         |> Array.exists
@@ -148,6 +151,7 @@ module main =
                 || x = ("/" + name)
                 || x = $"-{short_name}")
 
+    // main entry point
     [<EntryPoint>]
     let main argv =
         if Array.isEmpty argv then
@@ -157,4 +161,4 @@ module main =
         else if (has_argument "version" "v" argv) then
             version ()
         else
-            argv |> Array.toList |> all_files
+            argv |> Array.toList |> on_argument
