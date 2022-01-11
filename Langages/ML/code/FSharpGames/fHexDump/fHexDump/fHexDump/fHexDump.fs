@@ -42,7 +42,7 @@ module main =
 
     // not in the command line parameters
     let exe_name = "fHexDump"
-    let exe_version = "0.2.2"
+    let exe_version = "0.2.3"
     // show binary format
     let mutable is_binary = false
     // Show the help message
@@ -61,8 +61,7 @@ module main =
 
     // Show the version
     let rec version () =
-        let lines =
-            [ $"{exe_name} version {version}" ]
+        let lines = [ $"{exe_name} version {version}" ]
 
         print_lines lines 0
 
@@ -70,21 +69,25 @@ module main =
     let mutable bufferSize = 16
 
     let getFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
-        let newFormat : Printf.TextWriterFormat<_> = if is_binary then Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 9))
-                                                        else Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
-        let returnF() = newFormat
+        let newFormat =
+            if is_binary then
+                Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 9))
+            else
+                Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
+
+        let returnF () = newFormat
         bufferSize <- newBufferSize
         returnF
 
-    let mutable format = getFormat(bufferSize)
+    let mutable format = getFormat (bufferSize)
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
         let to_hex (b: byte) : string =
-            if is_binary then $"%08B{int b} "
-                                  else $"%02x{int b} "
-//            if is_binary then (sprintf "%02x " (int b))
-//                         else  (sprintf "%B " (int b))
+            if is_binary then
+                $"%08B{int b} "
+            else
+                $"%02x{int b} "
         // byte to ASCII: only values from 32 to 126 are unchanged,
         // others are replaced by '.'
         let to_good_ascii (b: byte) =
@@ -114,24 +117,25 @@ module main =
         | "--hexa" :: rest
         | "-x" :: rest ->
             is_binary <- false
-            format <- getFormat(bufferSize)
+            format <- getFormat (bufferSize)
             all_files rest
         | "--binary" :: rest
         | "-b" :: rest ->
             is_binary <- true
-            format <- getFormat(bufferSize)
+            format <- getFormat (bufferSize)
             all_files rest
         | "--width" :: rest
         | "-w" :: rest ->
             match rest with
             | [] -> help 1
             | iStr :: rest ->
-                format <- getFormat(str2int iStr)
+                format <- getFormat (str2int iStr)
                 all_files rest
         | f :: rest ->
-            let lastAddress = binary_file_reader f on_buffer bufferSize
-            printfn $"%08x{lastAddress}"
-            |> ignore
+            let lastAddress =
+                binary_file_reader f on_buffer bufferSize
+
+            printfn $"%08x{lastAddress}" |> ignore
 
             all_files rest
 
