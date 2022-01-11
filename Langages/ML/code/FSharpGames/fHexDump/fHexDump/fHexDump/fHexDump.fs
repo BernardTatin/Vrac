@@ -67,9 +67,13 @@ module main =
     // size of read buffer
     let mutable bufferSize = 16
 
-    let format (newBufferSize: int) : Printf.TextWriterFormat<_> =
-        bufferSize <- newBufferSize;
-        Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (bufferSize * 3))
+    let getFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
+        let newFormat : Printf.TextWriterFormat<_> = Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
+        let returnF() = newFormat
+        bufferSize <- newBufferSize
+        returnF
+
+    let mutable format = getFormat(bufferSize)
 
     let on_buffer address lst_buffer =
         // byte to hexadecimal
@@ -97,7 +101,7 @@ module main =
             |> List.map to_good_ascii
             |> List.fold add_str ""
         // print the result
-        printfn (format bufferSize) address hex asc
+        printfn (format ()) address hex asc
 
     // hexdump all files
     let rec all_files =
@@ -106,17 +110,19 @@ module main =
         | "--hexa" :: rest
         | "-x" :: rest ->
             is_binary <- false
+            format <- getFormat(bufferSize)
             all_files rest
         | "--binary" :: rest
         | "-b" :: rest ->
             is_binary <- true
+            format <- getFormat(bufferSize)
             all_files rest
         | "--width" :: rest
         | "-w" :: rest ->
             match rest with
             | [] -> help 1
             | istr :: rest ->
-                format (str2int istr) |> ignore
+                format <- getFormat(str2int istr)
                 all_files rest
         | f :: rest ->
             let lastAddress = binary_file_reader f on_buffer bufferSize
