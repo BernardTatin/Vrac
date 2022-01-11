@@ -1,16 +1,15 @@
 (*
-    fHexDump.fs
+    fhHelp.fs
 
-    2021-10-10
+    2022-01-11
 
     Hexdump written in F#
 
-    try: (Zsh)
-    diff -y --suppress-common-lines  <(hexdump -vC ~/nohup.out | tr -s ' ') <(fHexDump -w 16 ~/nohup.out  | tr -s ' ')
+    This file contains all about help
 
     The MIT License (MIT)
 
-    Copyright (c) 2021 Bernard TATIN
+    Copyright (c) 2021-2022 Bernard TATIN
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
