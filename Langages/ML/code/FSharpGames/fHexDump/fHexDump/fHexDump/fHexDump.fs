@@ -68,7 +68,8 @@ module main =
     let mutable bufferSize = 16
 
     let getFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
-        let newFormat : Printf.TextWriterFormat<_> = Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
+        let newFormat : Printf.TextWriterFormat<_> = if is_binary then Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 9))
+                                                        else Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
         let returnF() = newFormat
         bufferSize <- newBufferSize
         returnF
@@ -78,7 +79,8 @@ module main =
     let on_buffer address lst_buffer =
         // byte to hexadecimal
         let to_hex (b: byte) : string =
-            $"%02x{int b} "
+            if is_binary then $"%08B{int b} "
+                                  else $"%02x{int b} "
 //            if is_binary then (sprintf "%02x " (int b))
 //                         else  (sprintf "%B " (int b))
         // byte to ASCII: only values from 32 to 126 are unchanged,
@@ -121,8 +123,8 @@ module main =
         | "-w" :: rest ->
             match rest with
             | [] -> help 1
-            | istr :: rest ->
-                format <- getFormat(str2int istr)
+            | iStr :: rest ->
+                format <- getFormat(str2int iStr)
                 all_files rest
         | f :: rest ->
             let lastAddress = binary_file_reader f on_buffer bufferSize
