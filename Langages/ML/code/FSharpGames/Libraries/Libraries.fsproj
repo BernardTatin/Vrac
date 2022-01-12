@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="libtools.fsi" />
-        <Compile Include="libtools.fs" />
-        <Compile Include="libint.fs" />
-        <Compile Include="libarithmetics.fs" />
-        <Compile Include="libfiles.fs" />
+        <Compile Include="LibTools.fsi" />
+        <Compile Include="LibTools.fs" />
+        <Compile Include="LibInt.fs" />
+        <Compile Include="LibArithmetics.fs" />
+        <Compile Include="LibFiles.fs" />
     </ItemGroup>
 
 </Project>

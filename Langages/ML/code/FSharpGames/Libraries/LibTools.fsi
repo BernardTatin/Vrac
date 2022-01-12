@@ -40,3 +40,5 @@ module LibTools =
     val print_lines : string list -> int -> int
 
     val on_error : string -> 'a
+
+    val has_argument : 'a -> 'b -> string[] -> bool

@@ -44,9 +44,9 @@ module LibTools =
                          foreach f tl
 
     let print_lines (lines: string list) (exit_code: int) =
-        let iprintfn str =
+        let iPrintFn str =
             printfn $"{str}"
-        List.iter iprintfn lines
+        List.iter iPrintFn lines
         exit_code
 
     let on_error message =
@@ -54,3 +54,11 @@ module LibTools =
             | "" -> eprintfn "FATAL ERROR!!"
             | str -> eprintfn $"ERROR {message}!!"
         exit 1
+
+    // search a specific command line argument
+    let has_argument name short_name args =
+        args
+        |> Array.exists
+            (fun x ->
+                x = $"--{name}"
+                || x = $"-{short_name}")
