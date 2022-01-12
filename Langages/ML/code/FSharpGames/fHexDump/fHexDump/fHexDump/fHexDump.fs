@@ -49,19 +49,20 @@ module main =
     let mutable bufferSize = 16
 
     // closure to get the format of the full line
-    let getFullLineFormat (newBufferSize: int) : unit -> Printf.TextWriterFormat<_> =
+    let getFullLineFormat (newBufferSize: int) new_is_binary : unit -> Printf.TextWriterFormat<_> =
         let newFormat =
-            if is_binary then
+            if new_is_binary then
                 Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 9))
             else
                 Printf.TextWriterFormat<_>(sprintf "%%08x  %%-%ds |%%s|" (newBufferSize * 3))
 
         let returnF () = newFormat
         bufferSize <- newBufferSize
+        is_binary <- new_is_binary
         returnF
 
     // the current format of the full line
-    let mutable fullLineFormat = getFullLineFormat (bufferSize)
+    let mutable fullLineFormat = getFullLineFormat bufferSize is_binary
 
     // called on each buffer read
     let on_buffer address lst_buffer =
@@ -99,37 +100,27 @@ module main =
         | [] -> 0
         | "--hexa" :: rest
         | "-x" :: rest ->
-            is_binary <- false
-            fullLineFormat <- getFullLineFormat (bufferSize)
+            fullLineFormat <- getFullLineFormat bufferSize false
             on_argument rest
         | "--binary" :: rest
         | "-b" :: rest ->
-            is_binary <- true
-            fullLineFormat <- getFullLineFormat (bufferSize)
+            fullLineFormat <- getFullLineFormat bufferSize true
             on_argument rest
         | "--width" :: rest
         | "-w" :: rest ->
             match rest with
             | [] -> help 1
             | iStr :: rest ->
-                fullLineFormat <- getFullLineFormat (str2int iStr)
+                fullLineFormat <- getFullLineFormat (str2int iStr) is_binary
                 on_argument rest
         | f :: rest ->
             let lastAddress =
                 binary_file_reader f on_buffer bufferSize
 
-            printfn $"%08x{lastAddress}" |> ignore
+            printfn $"%08x{lastAddress}"
 
             on_argument rest
 
-    // search a specific command line argument
-    let has_argument name short_name args =
-        args
-        |> Array.exists
-            (fun x ->
-                x = ("--" + name)
-                || x = ("/" + name)
-                || x = $"-{short_name}")
 
     // main entry point
     [<EntryPoint>]
