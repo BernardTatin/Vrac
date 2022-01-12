@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs" />
+        <Compile Include="IntegerGames.fs" />
     </ItemGroup>
 
     <ItemGroup>

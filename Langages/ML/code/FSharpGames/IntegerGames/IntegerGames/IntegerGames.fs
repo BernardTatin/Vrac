@@ -1,5 +1,5 @@
 (*
-    Program.fs
+    IntegerGames.fs
 
     2021-10-10
 
@@ -35,7 +35,7 @@
 
  *)
 
-namespace integer_games
+namespace IntegerGames
 
 module main =
     open Libraries.LibTools
