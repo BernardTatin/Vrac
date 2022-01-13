@@ -1,12 +1,12 @@
 (*
-    libtools.fs
-    A general purpose library
-    Some code exist certainly in F# language/libraries,
-    I know it, it's for learning
+    Project:    Libraries
+    File name:  LibArguments.fs
+    User:       bernard
+    Date:       2022-01-13
 
     The MIT License (MIT)
 
-    Copyright (c) 2021 Bernard TATIN
+    Copyright (c) 2022 Bernard TATIN
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -26,31 +26,16 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-*)
+ *)
 
-(* global namespace *)
 namespace Libraries
 
-(* the module name *)
-module LibTools =
-    // foreach as in Scheme:
-    //      foreach f list
-    //          f : function 'a -> unit to apply on each element of the list
-    //          list : 'a list, the list
-    // F# has List.iter
-    let rec foreach f = function
-        | []          -> ()
-        | hd :: tl    -> f hd;
-                         foreach f tl
+module LibArguments =
 
-    let print_lines (lines: string list) (exit_code: int) =
-        let iPrintFn str =
-            printfn $"{str}"
-        List.iter iPrintFn lines
-        exit_code
-
-    let on_error message =
-        match message with
-            | "" -> eprintfn "FATAL ERROR!!"
-            | str -> eprintfn $"ERROR {message}!!"
-        exit 1
+    // search a specific command line argument
+    let has_argument name short_name args =
+        args
+        |> Array.exists
+            (fun x ->
+                x = $"--{name}"
+                || x = $"-{short_name}")

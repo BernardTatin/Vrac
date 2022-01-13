@@ -39,6 +39,7 @@ module main =
     open Libraries.LibTools
     open Libraries.LibFiles
     open Libraries.LibInt
+    open Libraries.LibArguments
     open fHexDump.Version
     open fHexDump.Help
 

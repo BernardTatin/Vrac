@@ -13,6 +13,7 @@
         <Compile Include="LibInt.fs" />
         <Compile Include="LibArithmetics.fs" />
         <Compile Include="LibFiles.fs" />
+        <Compile Include="LibArguments.fs" />
     </ItemGroup>
 
 </Project>
