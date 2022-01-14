@@ -31,27 +31,34 @@
 
 namespace Libraries
 
+open System
+
 module LibFiles =
     open System.IO
     open Libraries.LibTools
 
-    let binary_file_reader fileName on_rcv_buffer buffer_size =
+    let binary_file_reader fileName on_rcv_buffer buffer_size is_stdin =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate buffer_size
-        // NOTE: use is like let with the release of the resource at
-        //       the end of the block, here the file is closed
-        // open the file
-        // DONE: needs a better management of errors when opening a file
-        let some_stream =
-            try
-                Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
-            with
-            | :? FileNotFoundException -> on_error $"Cannot open file '{fileName}'" 1
-            | ex -> on_error $"FATAL {ex.Message} '{fileName}" 1
-        use stream = some_stream.Value
-        // create a binary reader
-        use reader = new BinaryReader(stream)
+        let getReader() =
+            if not is_stdin then
+                // DONE: needs a better management of errors when opening a file
+                let some_stream =
+                    try
+                        Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
+                    with
+                    | :? FileNotFoundException -> on_error $"Cannot open file '{fileName}'" 1
+                    | ex -> on_error $"FATAL {ex.Message} '{fileName}" 1
+                // NOTE: use is like let with the release of the resource at
+                //       the end of the block, here the file is closed
+                // open the file
+                let stream = some_stream.Value
+                new BinaryReader(stream)
+            else
+                let stream = Console.OpenStandardInput()
+                new BinaryReader(stream)
 
+        use reader = getReader()
 
         // the main loop to read and print
         let rec read_loop address =

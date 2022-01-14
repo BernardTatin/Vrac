@@ -96,14 +96,18 @@ module main =
         printfn (fullLineFormat ()) address hex asc
 
     let on_files = function
-        | [] -> on_error "You must specify some files, this version cannot read from stdin"
+        | [] ->
+                let lastAddress =
+                    binary_file_reader "" on_buffer bufferSize true
+
+                printfn $"%08x{lastAddress}"
                 0
         | f :: rest ->
             let rec the_loop = function
                 | [] -> 0
                 | f :: rest ->
                     let lastAddress =
-                        binary_file_reader f on_buffer bufferSize
+                        binary_file_reader f on_buffer bufferSize false
 
                     printfn $"%08x{lastAddress}"
 
@@ -137,7 +141,8 @@ module main =
     [<EntryPoint>]
     let main argv =
         if Array.isEmpty argv then
-            help 0
+            on_files []
+//            help 0
         else if (has_argument "help" "h" argv) then
             help 0
         else if (has_argument "version" "v" argv) then
