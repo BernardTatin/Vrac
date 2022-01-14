@@ -95,10 +95,25 @@ module main =
         // print the result
         printfn (fullLineFormat ()) address hex asc
 
+    let on_files = function
+        | [] -> on_error "You must specify some files, this version cannot read from stdin"
+                0
+        | f :: rest ->
+            let rec the_loop = function
+                | [] -> 0
+                | f :: rest ->
+                    let lastAddress =
+                        binary_file_reader f on_buffer bufferSize
+
+                    printfn $"%08x{lastAddress}"
+
+                    the_loop rest
+            the_loop (f :: rest)
+
     // hexdump all files
     let rec on_argument =
         function
-        | [] -> 0
+        | [] -> on_files []
         | "--hexa" :: rest
         | "-x" :: rest ->
             fullLineFormat <- getFullLineFormat bufferSize false
@@ -115,12 +130,7 @@ module main =
                 fullLineFormat <- getFullLineFormat (str2int iStr) is_binary
                 on_argument rest
         | f :: rest ->
-            let lastAddress =
-                binary_file_reader f on_buffer bufferSize
-
-            printfn $"%08x{lastAddress}"
-
-            on_argument rest
+            on_files (f :: rest)
 
 
     // main entry point
