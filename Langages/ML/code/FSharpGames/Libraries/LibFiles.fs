@@ -40,7 +40,8 @@ module LibFiles =
     let binary_file_reader fileName on_rcv_buffer buffer_size is_stdin =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate buffer_size
-        let getReader() =
+
+        let getReader () =
             if not is_stdin then
                 // DONE: needs a better management of errors when opening a file
                 let some_stream =
@@ -58,12 +59,13 @@ module LibFiles =
                 let stream = Console.OpenStandardInput()
                 new BinaryReader(stream)
 
-        use reader = getReader()
+        use reader = getReader ()
 
         // the main loop to read and print
         let rec read_loop address =
             // read the buffer
             let read_count = reader.Read(buffer, 0, buffer_size)
+
             if read_count = 0 then
                 0
             else

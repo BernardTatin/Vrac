@@ -35,15 +35,20 @@ namespace Libraries
 module LibArithmetics =
     open Libraries.LibInt
 
-    let factorial (n : int64) : int64 =
-        let rec inner_fact acc = function
-                | 0L | 1L -> acc
-                | k -> inner_fact (safe_mul k acc) (k - 1L)
+    let factorial (n: int64) : int64 =
+        let rec inner_fact acc =
+            function
+            | 0L
+            | 1L -> acc
+            | k -> inner_fact (safe_mul k acc) (k - 1L)
+
         inner_fact 1L n
 
     let fibonacchi n =
-        let rec inner_fibo = function
+        let rec inner_fibo =
+            function
             | 0L, a, _ -> a
             | 1L, _, b -> b
             | k, a, b -> inner_fibo ((k - 1L), b, (safe_add a b))
+
         inner_fibo (n, 0L, 1L)

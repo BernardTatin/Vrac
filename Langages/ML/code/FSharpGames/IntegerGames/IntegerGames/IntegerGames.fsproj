@@ -7,19 +7,19 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <PlatformTarget>x64</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <PlatformTarget>x64</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="IntegerGames.fs" />
+        <Compile Include="IntegerGames.fs"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Libraries\Libraries.fsproj" />
+        <ProjectReference Include="..\..\Libraries\Libraries.fsproj"/>
     </ItemGroup>
 
 </Project>

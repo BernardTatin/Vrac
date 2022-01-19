@@ -35,7 +35,4 @@ module LibArguments =
     // search a specific command line argument
     let has_argument name short_name args =
         args
-        |> Array.exists
-            (fun x ->
-                x = $"--{name}"
-                || x = $"-{short_name}")
+        |> Array.exists (fun x -> x = $"--{name}" || x = $"-{short_name}")

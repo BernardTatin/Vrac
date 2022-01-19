@@ -43,5 +43,4 @@ module Version =
     let internal versionLines = [ $"{exe_name} version {exe_version}" ]
 
     // Show the version
-    let rec version () =
-        print_lines versionLines 0
+    let rec version () = print_lines versionLines 0

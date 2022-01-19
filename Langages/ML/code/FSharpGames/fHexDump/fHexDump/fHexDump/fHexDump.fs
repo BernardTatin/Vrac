@@ -36,7 +36,6 @@ namespace fHexDump
 
 module main =
     open System
-    open Libraries.LibTools
     open Libraries.LibFiles
     open Libraries.LibInt
     open Libraries.LibArguments
@@ -95,15 +94,17 @@ module main =
         // print the result
         printfn (fullLineFormat ()) address hex asc
 
-    let on_files = function
+    let on_files =
+        function
         | [] ->
-                let lastAddress =
-                    binary_file_reader "" on_buffer bufferSize true
+            let lastAddress =
+                binary_file_reader "" on_buffer bufferSize true
 
-                printfn $"%08x{lastAddress}"
-                0
+            printfn $"%08x{lastAddress}"
+            0
         | f :: rest ->
-            let rec the_loop = function
+            let rec the_loop =
+                function
                 | [] -> 0
                 | f :: rest ->
                     let lastAddress =
@@ -112,6 +113,7 @@ module main =
                     printfn $"%08x{lastAddress}"
 
                     the_loop rest
+
             the_loop (f :: rest)
 
     // hexdump all files
@@ -133,8 +135,7 @@ module main =
             | iStr :: rest ->
                 fullLineFormat <- getFullLineFormat (str2int iStr) is_binary
                 on_argument rest
-        | f :: rest ->
-            on_files (f :: rest)
+        | f :: rest -> on_files (f :: rest)
 
 
     // main entry point
@@ -142,7 +143,6 @@ module main =
     let main argv =
         if Array.isEmpty argv then
             on_files []
-//            help 0
         else if (has_argument "help" "h" argv) then
             help 0
         else if (has_argument "version" "v" argv) then
