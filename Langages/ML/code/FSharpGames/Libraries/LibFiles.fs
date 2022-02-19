@@ -37,29 +37,44 @@ module LibFiles =
     open System.IO
     open Libraries.LibTools
 
-    let binary_file_reader fileName on_rcv_buffer buffer_size is_stdin =
+    type FileNameOrStdIn =
+        | FileName of string
+        | StdIn of bool
+
+    type FullStream =
+        | FullFS of FileStream
+        | FullS of Stream
+
+    let binary_file_reader fileName on_rcv_buffer buffer_size =
         // the buffer: a byte array of 'bufferSize' length
         let mutable buffer: byte array = Array.zeroCreate buffer_size
 
-        let getReader () =
-            if not is_stdin then
+        let getStream () : FullStream =
+            match fileName with
+            | FileName f ->
                 // DONE: needs a better management of errors when opening a file
                 let some_stream =
                     try
-                        Some(File.Open(fileName, FileMode.Open, FileAccess.Read))
+                        Some(File.Open(f, FileMode.Open, FileAccess.Read))
                     with
-                    | :? FileNotFoundException -> on_error $"Cannot open file '{fileName}'" 1
-                    | ex -> on_error $"FATAL {ex.Message} '{fileName}" 1
+                    | :? FileNotFoundException -> on_error $"Cannot open file '{f}'" 1
+                    | ex -> on_error $"FATAL {ex.Message} '{f}" 1
                 // NOTE: use is like let with the release of the resource at
                 //       the end of the block, here the file is closed
                 // open the file
-                let stream = some_stream.Value
-                new BinaryReader(stream)
-            else
-                let stream = Console.OpenStandardInput()
-                new BinaryReader(stream)
+                FullFS some_stream.Value
 
-        use reader = getReader ()
+            | StdIn s ->
+                FullS (Console.OpenStandardInput())
+
+//        let fullStream = getStream()
+//        use stream =
+//            match fullStream with
+//            | FullFS f -> f
+//            | FullS s -> s
+        let stream = getStream()
+
+        use reader = new BinaryReader(stream)
 
         // the main loop to read and print
         let rec read_loop address =

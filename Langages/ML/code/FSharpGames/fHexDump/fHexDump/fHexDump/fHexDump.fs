@@ -98,7 +98,7 @@ module main =
         function
         | [] ->
             let lastAddress =
-                binary_file_reader "" on_buffer bufferSize true
+                binary_file_reader (StdIn true) on_buffer bufferSize
 
             printfn $"%08x{lastAddress}"
             0
@@ -108,7 +108,7 @@ module main =
                 | [] -> 0
                 | f :: rest ->
                     let lastAddress =
-                        binary_file_reader f on_buffer bufferSize false
+                        binary_file_reader (FileName f) on_buffer bufferSize
 
                     printfn $"%08x{lastAddress}"
 
